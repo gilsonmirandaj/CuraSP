@@ -30,3 +30,8 @@ python3 -m http.server
 ## Observação
 
 Se o `index.html` atual estiver fazendo `fetch("events.json")`, troque para `fetch("data/events.json")`.
+
+
+## Ajustes aplicados
+
+- Links da Casa de Francisca padronizados para a página oficial da casa na Sympla e para a página de programação oficial.
