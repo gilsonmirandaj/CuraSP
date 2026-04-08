@@ -1,168 +1,201 @@
 <!DOCTYPE html>
-
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shows SP 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: #0e0e0e; color: #f0f0f0;
-    font-family: 'DM Sans', sans-serif; font-weight: 300;
-    max-width: 680px; margin: 0 auto; padding: 28px 20px 60px;
-  }
-  h1 { font-family: 'Bebas Neue', sans-serif; font-size: 48px; line-height: 1; letter-spacing: 2px; }
-  .sub { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #3a3a3a; margin-top: 4px; margin-bottom: 18px; }
+:root {
+  --bg:       #111213;
+  --surface:  #1a1b1d;
+  --border:   #26282b;
+  --border2:  #2f3235;
+  --text:     #e8e9ea;
+  --muted:    #6b6f74;
+  --faint:    #3a3d42;
+  --sesc:       #d4a843;
+  --cine:       #e05252;
+  --balaclava:  #5b8fe8;
+  --francisca:  #e07d3c;
+  --maldita:    #c45b9a;
+  --porta:      #8a72e0;
+  --picles:     #3ea87a;
+  --rockambole: #d45ba0;
+  --bona:       #b8a040;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg); color: var(--text);
+  font-family: 'Space Grotesk', sans-serif; font-weight: 400;
+  max-width: 700px; margin: 0 auto; padding: 40px 20px 80px;
+  -webkit-font-smoothing: antialiased;
+}
+.header { margin-bottom: 32px; }
+.header-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
+}
+.header-title { font-size: 34px; font-weight: 600; color: var(--text); line-height: 1.1; letter-spacing: -0.02em; }
+.header-title span { color: var(--muted); font-weight: 300; }
+.updated { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--faint); margin-top: 6px; letter-spacing: 0.08em; }
 
-.venue-row { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+.section-label {
+  font-family: 'Space Mono', monospace; font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px;
+}
+.venue-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
 .vbtn {
-border: 1px solid #1e1e1e; background: none; color: #333; padding: 4px 10px;
-border-radius: 3px; font-size: 10px; font-family: ‘Bebas Neue’, sans-serif;
-letter-spacing: 1px; cursor: pointer; transition: all 0.15s;
-display: flex; align-items: center; gap: 4px;
+  display: flex; align-items: center; gap: 7px; padding: 6px 12px 6px 8px;
+  border-radius: 5px; border: 1.5px solid var(--border2); background: var(--surface);
+  color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-size: 12px;
+  font-weight: 500; cursor: pointer; transition: all 0.15s ease; white-space: nowrap;
 }
-.vbtn .dot { width: 5px; height: 5px; border-radius: 50%; display: inline-block; background: #333; flex-shrink: 0; }
-.vbtn.on { color: #f0f0f0; border-color: #333; background: #161616; }
-.vbtn[data-v=“sesc”].on       { border-color: #e8ff47; color: #e8ff47; }
-.vbtn[data-v=“sesc”].on .dot  { background: #e8ff47; }
-.vbtn[data-v=“cine”].on       { border-color: #ff3c3c; color: #ff3c3c; }
-.vbtn[data-v=“cine”].on .dot  { background: #ff3c3c; }
-.vbtn[data-v=“balaclava”].on  { border-color: #6fb3ff; color: #6fb3ff; }
-.vbtn[data-v=“balaclava”].on .dot { background: #6fb3ff; }
-.vbtn[data-v=“francisca”].on  { border-color: #ff9f43; color: #ff9f43; }
-.vbtn[data-v=“francisca”].on .dot { background: #ff9f43; }
-.vbtn[data-v=“maldita”].on    { border-color: #ff6b9d; color: #ff6b9d; }
-.vbtn[data-v=“maldita”].on .dot { background: #ff6b9d; }
-.vbtn[data-v=“porta”].on      { border-color: #a29bfe; color: #a29bfe; }
-.vbtn[data-v=“porta”].on .dot { background: #a29bfe; }
-.vbtn[data-v=“picles”].on     { border-color: #55efc4; color: #55efc4; }
-.vbtn[data-v=“picles”].on .dot { background: #55efc4; }
-.vbtn[data-v=“rockambole”].on { border-color: #fd79a8; color: #fd79a8; }
-.vbtn[data-v=“rockambole”].on .dot { background: #fd79a8; }
-.vbtn[data-v=“bona”].on       { border-color: #ffeaa7; color: #ffeaa7; }
-.vbtn[data-v=“bona”].on .dot  { background: #ffeaa7; }
+.vbtn:hover { border-color: var(--faint); color: var(--text); }
+.vswatch { width: 8px; height: 8px; border-radius: 2px; background: var(--faint); flex-shrink: 0; transition: background 0.15s; }
+.vbtn.on { color: var(--text); }
+.vbtn[data-v="sesc"].on       { border-color: var(--sesc);       background: color-mix(in srgb, var(--sesc) 9%, var(--surface)); }
+.vbtn[data-v="sesc"].on .vswatch       { background: var(--sesc); }
+.vbtn[data-v="cine"].on       { border-color: var(--cine);       background: color-mix(in srgb, var(--cine) 9%, var(--surface)); }
+.vbtn[data-v="cine"].on .vswatch       { background: var(--cine); }
+.vbtn[data-v="balaclava"].on  { border-color: var(--balaclava);  background: color-mix(in srgb, var(--balaclava) 9%, var(--surface)); }
+.vbtn[data-v="balaclava"].on .vswatch  { background: var(--balaclava); }
+.vbtn[data-v="francisca"].on  { border-color: var(--francisca);  background: color-mix(in srgb, var(--francisca) 9%, var(--surface)); }
+.vbtn[data-v="francisca"].on .vswatch  { background: var(--francisca); }
+.vbtn[data-v="maldita"].on    { border-color: var(--maldita);    background: color-mix(in srgb, var(--maldita) 9%, var(--surface)); }
+.vbtn[data-v="maldita"].on .vswatch    { background: var(--maldita); }
+.vbtn[data-v="porta"].on      { border-color: var(--porta);      background: color-mix(in srgb, var(--porta) 9%, var(--surface)); }
+.vbtn[data-v="porta"].on .vswatch      { background: var(--porta); }
+.vbtn[data-v="picles"].on     { border-color: var(--picles);     background: color-mix(in srgb, var(--picles) 9%, var(--surface)); }
+.vbtn[data-v="picles"].on .vswatch     { background: var(--picles); }
+.vbtn[data-v="rockambole"].on { border-color: var(--rockambole); background: color-mix(in srgb, var(--rockambole) 9%, var(--surface)); }
+.vbtn[data-v="rockambole"].on .vswatch { background: var(--rockambole); }
+.vbtn[data-v="bona"].on       { border-color: var(--bona);       background: color-mix(in srgb, var(--bona) 9%, var(--surface)); }
+.vbtn[data-v="bona"].on .vswatch       { background: var(--bona); }
 
-.divider-thin { height: 1px; background: #161616; margin: 12px 0; }
-
-/* Date range filter */
-.date-row { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
-.date-label { font-size: 10px; color: #333; letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
-.date-sep { font-size: 10px; color: #2a2a2a; }
+.filter-bar {
+  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
+  border-radius: 8px; margin-bottom: 12px;
+}
+.filter-group { display: flex; align-items: center; gap: 7px; }
+.filter-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
 .date-input {
-background: #0e0e0e; border: 1px solid #222; color: #888;
-padding: 5px 10px; border-radius: 3px;
-font-family: ‘DM Sans’, sans-serif; font-size: 11px;
-outline: none; cursor: pointer; transition: border-color 0.15s;
-color-scheme: dark;
+  background: var(--bg); border: 1px solid var(--border2); color: var(--muted);
+  padding: 5px 9px; border-radius: 4px; font-family: 'Space Grotesk', sans-serif;
+  font-size: 12px; outline: none; cursor: pointer; transition: all 0.15s; color-scheme: dark;
 }
-.date-input:hover { border-color: #444; }
-.date-input:focus { border-color: #555; color: #f0f0f0; }
-.date-input.active { border-color: #555; color: #f0f0f0; }
-#date-clear {
-background: none; border: none; color: #333; font-size: 13px;
-cursor: pointer; padding: 2px 6px; border-radius: 3px;
-transition: color 0.15s; display: none;
+.date-input:hover  { border-color: var(--faint); }
+.date-input:focus  { border-color: var(--muted); color: var(--text); }
+.date-input.active { border-color: var(--muted); color: var(--text); }
+.filter-sep { color: var(--faint); font-size: 14px; }
+.clear-btn {
+  margin-left: auto; background: none; border: 1px solid var(--border2);
+  color: var(--faint); padding: 4px 10px; border-radius: 4px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 11px;
+  cursor: pointer; transition: all 0.15s; display: none;
 }
-#date-clear:hover { color: #f0f0f0; }
-#date-clear.show { display: inline; }
+.clear-btn.show { display: inline-block; }
+.clear-btn:hover { border-color: var(--muted); color: var(--text); }
 
-.genre-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.genre-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; }
 .chip {
-border: 1px solid #1a1a1a; background: none; color: #333; padding: 3px 10px;
-border-radius: 100px; font-size: 11px; cursor: pointer; transition: all 0.12s;
+  padding: 4px 11px; border-radius: 100px; border: 1px solid var(--border);
+  background: none; color: var(--faint); font-family: 'Space Grotesk', sans-serif;
+  font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.12s;
 }
-.chip:hover { border-color: #444; color: #aaa; }
-.chip.on { background: #1e1e1e; border-color: #555; color: #f0f0f0; }
+.chip:hover { border-color: var(--border2); color: var(--muted); }
+.chip.on { background: var(--text); border-color: var(--text); color: var(--bg); }
 
-.bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-.count { font-size: 10px; color: #2a2a2a; letter-spacing: 1px; }
-.list-divider { height: 1px; background: #161616; }
+.count-bar { display: flex; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.count { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--faint); }
 
 .event {
-display: grid; grid-template-columns: 82px 1fr auto; gap: 0 12px;
-padding: 12px 0; border-bottom: 1px solid #141414;
-text-decoration: none; color: inherit;
-opacity: 0; animation: fi 0.2s forwards; align-items: start;
+  display: grid; grid-template-columns: 68px 1fr auto; gap: 0 16px;
+  padding: 14px 0 14px 14px; border-bottom: 1px solid var(--border);
+  text-decoration: none; color: inherit; align-items: start;
+  opacity: 0; animation: fi 0.18s ease forwards; position: relative; transition: background 0.1s;
 }
+.event::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 0 2px 2px 0; }
+.event:hover { background: rgba(255,255,255,0.02); }
 @keyframes fi { to { opacity: 1; } }
+.event[data-v="sesc"]::before       { background: var(--sesc); }
+.event[data-v="cine"]::before       { background: var(--cine); }
+.event[data-v="balaclava"]::before  { background: var(--balaclava); }
+.event[data-v="francisca"]::before  { background: var(--francisca); }
+.event[data-v="maldita"]::before    { background: var(--maldita); }
+.event[data-v="porta"]::before      { background: var(--porta); }
+.event[data-v="picles"]::before     { background: var(--picles); }
+.event[data-v="rockambole"]::before { background: var(--rockambole); }
+.event[data-v="bona"]::before       { background: var(--bona); }
+
+.when-day { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; line-height: 1.3; padding-top: 2px; }
+.when-time { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; }
+.who { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; letter-spacing: -0.01em; }
 .event:hover .who { color: #fff; }
+.where { font-size: 12px; color: var(--muted); line-height: 1.5; }
+.price-tag { display: inline; font-size: 11px; color: var(--faint); margin-left: 6px; }
+.detail { font-size: 11px; color: var(--faint); margin-top: 2px; line-height: 1.4; }
 
-.when { font-size: 10px; color: #2a2a2a; line-height: 1.9; padding-top: 2px; }
-.when strong { display: block; color: #4a4a4a; font-weight: 400; font-size: 11px; }
-.who { font-size: 14px; font-weight: 400; margin-bottom: 2px; color: #bbb; transition: color 0.1s; line-height: 1.3; }
-.meta { font-size: 11px; color: #2a2a2a; line-height: 1.6; }
-.dtxt { font-size: 10px; color: #222; margin-top: 1px; }
+.vtag { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 7px; border-radius: 3px; white-space: nowrap; margin-top: 2px; display: inline-block; }
+.t-sesc       { color: var(--sesc);       background: color-mix(in srgb, var(--sesc) 14%, var(--bg)); }
+.t-cine       { color: var(--cine);       background: color-mix(in srgb, var(--cine) 14%, var(--bg)); }
+.t-balaclava  { color: var(--balaclava);  background: color-mix(in srgb, var(--balaclava) 14%, var(--bg)); }
+.t-francisca  { color: var(--francisca);  background: color-mix(in srgb, var(--francisca) 14%, var(--bg)); }
+.t-maldita    { color: var(--maldita);    background: color-mix(in srgb, var(--maldita) 14%, var(--bg)); }
+.t-porta      { color: var(--porta);      background: color-mix(in srgb, var(--porta) 14%, var(--bg)); }
+.t-picles     { color: var(--picles);     background: color-mix(in srgb, var(--picles) 14%, var(--bg)); }
+.t-rockambole { color: var(--rockambole); background: color-mix(in srgb, var(--rockambole) 14%, var(--bg)); }
+.t-bona       { color: var(--bona);       background: color-mix(in srgb, var(--bona) 14%, var(--bg)); }
 
-.venue-pill {
-font-family: ‘Bebas Neue’, sans-serif; font-size: 9px; letter-spacing: 1px;
-padding: 2px 6px; border-radius: 2px; white-space: nowrap; display: inline-block; margin-top: 2px;
-}
-.p-sesc       { background: rgba(232,255,71,0.07);  color: #e8ff47; }
-.p-cine       { background: rgba(255,60,60,0.07);   color: #ff3c3c; }
-.p-balaclava  { background: rgba(111,179,255,0.07); color: #6fb3ff; }
-.p-francisca  { background: rgba(255,159,67,0.07);  color: #ff9f43; }
-.p-maldita    { background: rgba(255,107,157,0.07); color: #ff6b9d; }
-.p-porta      { background: rgba(162,155,254,0.07); color: #a29bfe; }
-.p-picles     { background: rgba(85,239,196,0.07);  color: #55efc4; }
-.p-rockambole { background: rgba(253,121,168,0.07); color: #fd79a8; }
-.p-bona       { background: rgba(255,234,167,0.07); color: #ffeaa7; }
+.empty { text-align: center; padding: 60px 0; color: var(--faint); font-size: 13px; line-height: 2; }
+.error { text-align: center; padding: 40px 0; color: #e05252; font-size: 12px; font-family: 'Space Mono', monospace; }
 
-.empty { text-align: center; padding: 48px 0; color: #222; font-size: 13px; line-height: 2; }
-
-.source-note { margin-top: 36px; font-size: 10px; color: #1e1e1e; line-height: 2.2; text-align: center; }
-.source-note a { color: #252525; text-decoration: none; }
-.source-note a:hover { color: #555; }
+.footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 6px 16px; }
+.footer a { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.15s; }
+.footer a:hover { color: var(--muted); }
 </style>
-
 </head>
 <body>
 
-<h1>SHOWS<br>SAO PAULO</h1>
-<div class="sub">Agenda 2026 &middot; 9 casas</div>
+<div class="header">
+  <div class="header-eyebrow">SP · 2026</div>
+  <div class="header-title">Shows <span>em São Paulo</span></div>
+  <div class="updated" id="updated"></div>
+</div>
 
+<div class="section-label">Casas</div>
 <div class="venue-row" id="venue-row"></div>
-<div class="divider-thin"></div>
 
-<div class="date-row">
-  <span class="date-label">De</span>
-  <input type="date" id="date-from" class="date-input" onchange="onDateChange()" />
-  <span class="date-sep">&#8212;</span>
-  <span class="date-label">Ate</span>
-  <input type="date" id="date-to" class="date-input" onchange="onDateChange()" />
-  <button id="date-clear" onclick="clearDate()" title="Limpar intervalo">&#10005;</button>
+<div class="filter-bar">
+  <div class="filter-group">
+    <span class="filter-label">De</span>
+    <input type="date" id="date-from" class="date-input" onchange="onDateChange()" />
+  </div>
+  <span class="filter-sep">—</span>
+  <div class="filter-group">
+    <span class="filter-label">Até</span>
+    <input type="date" id="date-to" class="date-input" onchange="onDateChange()" />
+  </div>
+  <button id="date-clear" class="clear-btn" onclick="clearDate()">Limpar</button>
 </div>
 
 <div class="genre-row" id="chips"></div>
-<div class="bar"><span class="count" id="count"></span></div>
-<div class="list-divider"></div>
+<div class="count-bar"><span class="count" id="count"></span></div>
 <div id="list"></div>
-
-<div class="source-note">
-  <a href="https://www.sescsp.org.br/programacao/" target="_blank">SESC</a> &middot;
-  <a href="https://www.cinejoia.com.br/agenda/" target="_blank">Cine Joia</a> &middot;
-  <a href="https://www.instagram.com/balaclavarecords/" target="_blank">Balaclava</a> &middot;
-  <a href="https://casadefrancisca.art.br/novo/programacao" target="_blank">Francisca</a> &middot;
-  <a href="https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672" target="_blank">Maldita</a> &middot;
-  <a href="https://shotgun.live/en/venues/p-o-r-t-a" target="_blank">Porta</a> &middot;
-  <a href="https://shotgun.live/en/venues/picles" target="_blank">Picles</a> &middot;
-  <a href="https://meaple.com.br/rockambole" target="_blank">Rockambole</a> &middot;
-  <a href="https://www.bona.art.br/event-list" target="_blank">Bona</a>
-</div>
+<div class="footer" id="footer"></div>
 
 <script>
-// ── VENUES ────────────────────────────────────────────────────────
 var VENUES = [
-  {id:"sesc",       label:"SESC",       cls:"p-sesc",       color:"#e8ff47"},
-  {id:"cine",       label:"CINE JOIA",  cls:"p-cine",       color:"#ff3c3c"},
-  {id:"balaclava",  label:"BALACLAVA",  cls:"p-balaclava",  color:"#6fb3ff"},
-  {id:"francisca",  label:"FRANCISCA",  cls:"p-francisca",  color:"#ff9f43"},
-  {id:"maldita",    label:"MALDITA",    cls:"p-maldita",    color:"#ff6b9d"},
-  {id:"porta",      label:"PORTA",      cls:"p-porta",      color:"#a29bfe"},
-  {id:"picles",     label:"PICLES",     cls:"p-picles",     color:"#55efc4"},
-  {id:"rockambole", label:"ROCKAMBOLE", cls:"p-rockambole", color:"#fd79a8"},
-  {id:"bona",       label:"BONA",       cls:"p-bona",       color:"#ffeaa7"}
+  {id:"sesc",       label:"SESC",       tag:"t-sesc"},
+  {id:"cine",       label:"Cine Joia",  tag:"t-cine"},
+  {id:"balaclava",  label:"Balaclava",  tag:"t-balaclava"},
+  {id:"francisca",  label:"Francisca",  tag:"t-francisca"},
+  {id:"maldita",    label:"Maldita",    tag:"t-maldita"},
+  {id:"porta",      label:"Porta",      tag:"t-porta"},
+  {id:"picles",     label:"Picles",     tag:"t-picles"},
+  {id:"rockambole", label:"Rockambole", tag:"t-rockambole"},
+  {id:"bona",       label:"Bona",       tag:"t-bona"}
 ];
 var VM = {};
 VENUES.forEach(function(v) { VM[v.id] = v; });
@@ -172,145 +205,30 @@ VENUES.forEach(function(v) { activeVenues[v.id] = true; });
 VENUES.forEach(function(v) {
   var b = document.createElement("button");
   b.className = "vbtn on"; b.setAttribute("data-v", v.id);
-  b.innerHTML = "<span class='dot'></span> " + v.label;
+  b.innerHTML = "<span class='vswatch'></span>" + v.label;
   b.onclick = function() { toggleVenue(b); };
   document.getElementById("venue-row").appendChild(b);
 });
 
-// ── DATA ──────────────────────────────────────────────────────────
-var SEED = [
-  {name:"Caique Tostes",detail:"Performance poetica e saude mental",date:"Qui 09/4",time:"19h",venue:"SESC Ipiranga",v:"sesc",genre:"MPB",price:"Gratis",url:"https://www.sescsp.org.br/programacao/caique-tostes/",added:"2026-04-06"},
-  {name:"Negritude Jr.",detail:"Show",date:"Sex 10/4",time:"20h30",venue:"SESC SP",v:"sesc",genre:"Pagode",price:"",url:"https://www.sescsp.org.br/programacao/negritude-jr/",added:"2026-04-06"},
-  {name:"Negritude Jr.",detail:"Show",date:"Sab 11/4",time:"20h30",venue:"SESC SP",v:"sesc",genre:"Pagode",price:"",url:"https://www.sescsp.org.br/programacao/negritude-jr/",added:"2026-04-06"},
-  {name:"Mirim e Victor Xama",detail:"",date:"Dom 12/4",time:"",venue:"SESC SP",v:"sesc",genre:"Rap",price:"",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"DJ Nelson Maca",detail:"Samba rock, MPB, soul",date:"Sab 18/4",time:"15h",venue:"Nazare Paulista",v:"sesc",genre:"Samba",price:"Gratis",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Comadres",detail:"Forro pe de serra, baiao",date:"Dom 19/4",time:"15h",venue:"Bom Jesus dos Perdoes",v:"sesc",genre:"Forro",price:"Gratis",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Show part. Djonga",detail:"Show autoral",date:"Qui 23/4",time:"21h",venue:"SESC SP",v:"sesc",genre:"Hip-hop",price:"",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Show part. Djonga",detail:"",date:"Sex 24/4",time:"21h",venue:"SESC SP",v:"sesc",genre:"Hip-hop",price:"",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Mari Jasca",detail:"Show solo Disparada",date:"Sex 24/4",time:"20h",venue:"SESC 14 Bis",v:"sesc",genre:"MPB",price:"R$60",url:"https://www.sescsp.org.br/programacao/mari-jasca/",added:"2026-04-06"},
-  {name:"Catto",detail:"Caminhos Selvagens + tributo Gal",date:"Sab 25/4",time:"20h",venue:"SESC 14 Bis",v:"sesc",genre:"MPB",price:"R$60",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Tributo Legiao Urbana",detail:"",date:"Sab 25/4",time:"21h",venue:"SESC SP",v:"sesc",genre:"Rock",price:"",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Bastos e Leila Pinheiro",detail:"",date:"Sab 25/4",time:"",venue:"SESC SP",v:"sesc",genre:"MPB",price:"",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Sarah Leandro",detail:"Forro de Bodoco",date:"Dom 26/4",time:"16h",venue:"SESC Bom Retiro",v:"sesc",genre:"Forro",price:"Gratis",url:"https://www.sescsp.org.br/programacao/sarah-leandro/",added:"2026-04-06"},
-  {name:"Samba do Comerciario",detail:"",date:"Ter 28/4",time:"",venue:"SESC SP",v:"sesc",genre:"Samba",price:"Gratis",url:"https://www.sescsp.org.br/programacao/",added:"2026-04-06"},
-  {name:"Alma Djem",detail:"Acustico - Reggae, MPB, Soul",date:"Qui 30/4",time:"21h",venue:"SESC SP",v:"sesc",genre:"Reggae",price:"R$60",url:"https://www.sescsp.org.br/programacao/alma-djem/",added:"2026-04-06"},
-  {name:"Yunk Vino",detail:"",date:"Qui 02/4",time:"22h",venue:"Cine Joia",v:"cine",genre:"Hip-hop",price:"",url:"https://www.songkick.com/concerts/43141297",added:"2026-04-06"},
-  {name:"Public Image Ltd.",detail:"Com The Gulps",date:"Qua 08/4",time:"19h",venue:"Cine Joia",v:"cine",genre:"Post-punk",price:"",url:"https://www.cinejoia.com.br/agenda/public-image-ltd/",added:"2026-04-06"},
-  {name:"Oriente",detail:"",date:"Sab 11/4",time:"20h",venue:"Cine Joia",v:"cine",genre:"Hip-hop",price:"",url:"https://www.songkick.com/concerts/43045390",added:"2026-04-06"},
-  {name:"Anna Tsuchiya",detail:"",date:"Ter 14/4",time:"",venue:"Cine Joia",v:"cine",genre:"Rock/Pop",price:"",url:"https://www.songkick.com/concerts/43013462",added:"2026-04-06"},
-  {name:"Mad Professor",detail:"Com Liquidus Ambiento",date:"Qui 16/4",time:"19h",venue:"Cine Joia",v:"cine",genre:"Reggae",price:"",url:"https://www.cinejoia.com.br/agenda/mad-professor/",added:"2026-04-06"},
-  {name:"Cachorro Grande",detail:"",date:"Sex 17/4",time:"20h",venue:"Cine Joia",v:"cine",genre:"Rock",price:"",url:"https://www.songkick.com/concerts/43045390",added:"2026-04-06"},
-  {name:"Midnight Til Morning",detail:"",date:"Sab 18/4",time:"19h",venue:"Cine Joia",v:"cine",genre:"Pop",price:"",url:"https://www.songkick.com/concerts/42936819",added:"2026-04-06"},
-  {name:"Ze Ibarra",detail:"",date:"Qui 23/4",time:"19h",venue:"Cine Joia",v:"cine",genre:"MPB",price:"",url:"https://www.songkick.com/concerts/43094750",added:"2026-04-06"},
-  {name:"Maglore",detail:"",date:"Sex 24/4",time:"21h",venue:"Cine Joia",v:"cine",genre:"Indie Rock",price:"",url:"https://www.songkick.com/concerts/42984722",added:"2026-04-06"},
-  {name:"The 5.6.7.8s",detail:"",date:"Sab 26/4",time:"",venue:"Cine Joia",v:"cine",genre:"Rock",price:"",url:"https://www.cinejoia.com.br/agenda/",added:"2026-04-06"},
-  {name:"Varukers",detail:"",date:"Sex 08/5",time:"",venue:"Cine Joia",v:"cine",genre:"Punk",price:"",url:"https://www.songkick.com/concerts/43058822",added:"2026-04-06"},
-  {name:"Leisure",detail:"",date:"Qua 13/5",time:"21h",venue:"Cine Joia",v:"cine",genre:"Funk/Soul",price:"",url:"https://www.songkick.com/concerts/43038806",added:"2026-04-06"},
-  {name:"Leisure",detail:"",date:"Qua 27/5",time:"21h",venue:"Cine Joia",v:"cine",genre:"Funk/Soul",price:"",url:"https://www.cinejoia.com.br/agenda/",added:"2026-04-06"},
-  {name:"Superchunk",detail:"Balaclava apresenta",date:"Dom 31/5",time:"19h",venue:"Cine Joia",v:"cine",genre:"Indie Rock",price:"",url:"https://www.ingresse.com/superchunk-sp/",added:"2026-04-06"},
-  {name:"Shame",detail:"Balaclava apresenta",date:"Sab 20/6",time:"19h",venue:"Cine Joia",v:"cine",genre:"Post-punk",price:"",url:"https://www.ingresse.com/shame-sp/",added:"2026-04-06"},
-  {name:"Mac DeMarco",detail:"",date:"Sab 04/4",time:"21h",venue:"Audio SP",v:"balaclava",genre:"Indie/Pop",price:"",url:"https://www.ingresse.com/macdemarco-sp2/",added:"2026-04-06"},
-  {name:"Mac DeMarco",detail:"Data extra",date:"Dom 05/4",time:"19h",venue:"Audio SP",v:"balaclava",genre:"Indie/Pop",price:"",url:"https://www.ingresse.com/macdemarco-sp2/",added:"2026-04-06"},
-  {name:"Nicolas Krassik e Pablo Moura",detail:"Forro franco-brasileiro",date:"Ter 07/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"Forro",price:"",url:"https://bileto.sympla.com.br/event/117603",added:"2026-04-06"},
-  {name:"Romulo Froes",detail:"Lancamento Boneca Russa",date:"Qua 08/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"MPB",price:"",url:"https://bileto.sympla.com.br/event/117567",added:"2026-04-06"},
-  {name:"Pagode da 27",detail:"",date:"Qua 08/4",time:"21h30",venue:"Francisca Porao",v:"francisca",genre:"Samba",price:"Gratis",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Aurea Martins e Cristovao Bastos",detail:"Feat. Renato Braz",date:"Qui 09/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"MPB/Samba",price:"",url:"https://bileto.sympla.com.br/event/117570",added:"2026-04-06"},
-  {name:"Horoya 10 Anos",detail:"Afrobeat / jazz",date:"Sex 10/4",time:"22h",venue:"Francisca Porao",v:"francisca",genre:"Afrobeat",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Pagode da Dona Ivone",detail:"",date:"Sab 11/4",time:"17h",venue:"Francisca Porao",v:"francisca",genre:"Samba",price:"R$26",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Joao Camarero",detail:"Feat. Tigana Santana",date:"Sab 11/4",time:"22h",venue:"Francisca Salao",v:"francisca",genre:"MPB",price:"",url:"https://bileto.sympla.com.br/event/117313",added:"2026-04-06"},
-  {name:"Roda Delas",detail:"Canta compositoras do samba",date:"Dom 12/4",time:"17h",venue:"Francisca Porao",v:"francisca",genre:"Samba",price:"Gratis",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Bruna Lucchesi",detail:"BANDOLEIRA",date:"Ter 14/4",time:"21h30",venue:"Francisca Porao",v:"francisca",genre:"MPB/Indie",price:"",url:"https://bileto.sympla.com.br/event/117603",added:"2026-04-06"},
-  {name:"Andre Mehmari",detail:"2a Mostra de Piano",date:"Qua 15/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"Classical",price:"",url:"https://bileto.sympla.com.br/event/117567",added:"2026-04-06"},
-  {name:"Bela Ciavatta",detail:"Feito o Sol",date:"Qui 16/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"Afro-Bras.",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Cida Moreira",detail:"A Musica de Angela Ro Ro",date:"Qui 16/4",time:"21h30",venue:"Francisca Sala B",v:"francisca",genre:"MPB",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Toninho Ferragutti e Nailor Proveta",detail:"Espelho do Som",date:"Sex 17/4",time:"22h",venue:"Francisca Sala B",v:"francisca",genre:"Choro",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Anais Sylla",detail:"Feat. Xenia Franca",date:"Qua 22/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"Afro/MPB",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Banda Gloria",detail:"Canta Chico Buarque",date:"Qui 23/4",time:"21h30",venue:"Francisca Salao",v:"francisca",genre:"MPB/Samba",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Blubell",detail:"Vaudeville",date:"Qui 23/4",time:"21h30",venue:"Francisca Sala B",v:"francisca",genre:"MPB/Pop",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Nega Duda",detail:"Samba de Roda",date:"Qui 23/4",time:"21h30",venue:"Francisca Porao",v:"francisca",genre:"Samba",price:"Gratis",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Explode Coracao 10 Anos",detail:"Tributo Maria Bethania",date:"Sex 24/4",time:"22h",venue:"Francisca Salao",v:"francisca",genre:"Samba/MPB",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Rodrigo Ogi e nILL",detail:"Manual Para Nao Desaparecer",date:"Sex 24/4",time:"22h",venue:"Francisca Porao",v:"francisca",genre:"Rap",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Samba do Aguida",detail:"",date:"Sab 25/4",time:"17h",venue:"Francisca Porao",v:"francisca",genre:"Samba",price:"R$26",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Jucara Marcal, Suzana Salles e Kiko Dinucci",detail:"Cantam Itamar",date:"Qua 29/4",time:"21h30",venue:"Francisca Porao",v:"francisca",genre:"MPB",price:"",url:"https://casadefrancisca.art.br/novo/programacao",added:"2026-04-06"},
-  {name:"Jambu + Verdan",detail:"Indie rock, lancamento de disco",date:"Qui 02/4",time:"20h",venue:"Porta Maldita",v:"maldita",genre:"Indie Rock",price:"R$35–50",url:"https://www.sympla.com.br/evento/a-porta-maldita-jambu-verdan/3341880",added:"2026-04-06"},
-  {name:"Felipe Tavora + Jalt + Cha Preto",detail:"Indie rock",date:"Sex 04/4",time:"20h",venue:"Porta Maldita",v:"maldita",genre:"Indie Rock",price:"R$25–30",url:"https://www.sympla.com.br/evento/a-porta-maldita/3341881",added:"2026-04-06"},
-  {name:"Animais + Surto Coletivo + All Star Dogs",detail:"Rock alternativo",date:"Sex 17/4",time:"20h",venue:"Porta Maldita",v:"maldita",genre:"Rock",price:"R$25–30",url:"https://www.sympla.com.br/evento/a-porta-maldita/3369392",added:"2026-04-06"},
-  {name:"ANOMALIA",detail:"AKA AFK, RUA 06, OKIE + mais",date:"Sab 11/4",time:"20h",venue:"Porta Maldita",v:"maldita",genre:"Grime/Trap",price:"R$20",url:"https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672",added:"2026-04-06"},
-  {name:"Bebe Feio + CRAS + Joker + BIG",detail:"",date:"Dom 12/4",time:"20h",venue:"Porta Maldita",v:"maldita",genre:"Indie/Rock",price:"R$25",url:"https://www.sympla.com.br/evento/lgc/2869392",added:"2026-04-06"},
-  {name:"Pista Quente 0800 Club",detail:"Electronic",date:"2026",time:"",venue:"Porta, Pinheiros",v:"porta",genre:"Eletronica",price:"Gratis",url:"https://shotgun.live/en/venues/p-o-r-t-a",added:"2026-04-06"},
-  {name:"Ryosuke Kiyasu + Aun Helden",detail:"Experimental",date:"Seg 30/3",time:"18h",venue:"Porta, Pinheiros",v:"porta",genre:"Experimental",price:"R$40–50",url:"https://shotgun.live/pt-br/events/ryosuke-kiyasu-aun-helden",added:"2026-04-06"},
-  {name:"Vivendo do Ocio",detail:"",date:"Qui 09/4",time:"20h",venue:"Picles Cardeal",v:"picles",genre:"Indie Rock",price:"",url:"https://www.songkick.com/concerts/43141297",added:"2026-04-06"},
-  {name:"The Mockers",detail:"",date:"Sex 10/4",time:"20h",venue:"Picles Cardeal",v:"picles",genre:"Rock",price:"",url:"https://www.songkick.com/concerts/43132498",added:"2026-04-06"},
-  {name:"X.i.s. + DJ Erick Jay",detail:"",date:"Qui 16/4",time:"20h",venue:"Picles Cardeal",v:"picles",genre:"Hip-hop",price:"",url:"https://www.songkick.com/concerts/43132236",added:"2026-04-06"},
-  {name:"CACO + Juia",detail:"",date:"Sex 17/4",time:"20h",venue:"Picles Cardeal",v:"picles",genre:"Indie",price:"",url:"https://www.songkick.com/concerts/43132242",added:"2026-04-06"},
-  {name:"Caravaggio",detail:"",date:"Seg 20/4",time:"20h",venue:"Picles Cardeal",v:"picles",genre:"Rock",price:"",url:"https://www.songkick.com/concerts/43132495",added:"2026-04-06"},
-  {name:"No Hope Fest",detail:"Musica experimental / noise, com Test + Deafkids, Sturle Dagsland e mais",date:"Sex 03/4",time:"18h",venue:"Casa Rockambole",v:"rockambole",genre:"Experimental",price:"R$30–60",url:"https://meaple.com.br/selorockambole/no-hope-fest",added:"2026-04-06"},
-  {name:"Guilherme Neves",detail:"Samba Timido - feat. Cristovao Bastos, Renato Braz",date:"Qua 08/4",time:"21h",venue:"Bona Casa de Musica",v:"bona",genre:"Samba/MPB",price:"R$60",url:"https://www.eventim.com.br/artist/bona-casa-musica/guilherme-neves-samba-timido/",added:"2026-04-06"},
-  {name:"Lan Lanh convida Chico Chico",detail:"",date:"Qui 09/4",time:"20h",venue:"Bona Casa de Musica",v:"bona",genre:"MPB",price:"R$60",url:"https://www.eventim.com.br/artist/bona-casa-musica/lan-lanh-convida-chico-chico/",added:"2026-04-06"},
-  {name:"Salvador Sobral",detail:"Jazz / cantor-compositor portugues",date:"Sex 10/4",time:"20h",venue:"Bona Casa de Musica",v:"bona",genre:"Jazz/MPB",price:"R$60",url:"https://www.eventim.com.br/artist/bona-casa-musica/salvador-sobral/",added:"2026-04-06"},
-  {name:"M.O.T.",detail:"Manga, Osvaldo e Tchernev (ex-Mutantes)",date:"Dom 12/4",time:"20h",venue:"Bona Casa de Musica",v:"bona",genre:"Rock/MPB",price:"R$60",url:"https://www.eventim.com.br/artist/m-o-t-/",added:"2026-04-06"},
-  {name:"Marcelo Paiva e Luiza Villa",detail:"Anatomia de Bob Dylan",date:"Qua 15/4",time:"20h",venue:"Bona Casa de Musica",v:"bona",genre:"Folk/MPB",price:"R$60",url:"https://www.eventim.com.br/artist/luiza-villa/",added:"2026-04-06"},
-  {name:"Jesse Harris",detail:"If You Believed In Me",date:"Ter 07/4",time:"20h",venue:"Bona Casa de Musica",v:"bona",genre:"Folk/Jazz",price:"R$60",url:"https://www.eventim.com.br/artist/bona-casa-musica/jesse-harris/",added:"2026-04-06"},
-  {name:"Xangai",detail:"Cultura sertaneja",date:"2026",time:"",venue:"Bona Casa de Musica",v:"bona",genre:"MPB",price:"R$60",url:"https://www.eventim.com.br/artist/bona-casa-musica/",added:"2026-04-06"}
+var LINKS = [
+  {l:"SESC",       u:"https://www.sescsp.org.br/programacao/"},
+  {l:"Cine Joia",  u:"https://www.cinejoia.com.br/agenda/"},
+  {l:"Balaclava",  u:"https://www.instagram.com/balaclavarecords/"},
+  {l:"Francisca",  u:"https://casadefrancisca.art.br/novo/programacao"},
+  {l:"Maldita",    u:"https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672"},
+  {l:"Porta",      u:"https://shotgun.live/en/venues/p-o-r-t-a"},
+  {l:"Picles",     u:"https://shotgun.live/en/venues/picles"},
+  {l:"Rockambole", u:"https://meaple.com.br/rockambole"},
+  {l:"Bona",       u:"https://www.bona.art.br/event-list"}
 ];
+LINKS.forEach(function(x) {
+  var a = document.createElement("a");
+  a.href = x.u; a.target = "_blank"; a.textContent = x.l;
+  document.getElementById("footer").appendChild(a);
+});
 
-// ── VENUE FILTER ──────────────────────────────────────────────────
-function toggleVenue(btn) {
-  var v = btn.getAttribute("data-v"), on = btn.classList.contains("on");
-  if (on && VENUES.filter(function(x){return x.id!==v&&activeVenues[x.id];}).length===0) return;
-  activeVenues[v] = !on; btn.classList.toggle("on"); render();
-}
-
-// ── DATE RANGE FILTER ─────────────────────────────────────────────
-var dateFrom = null;
-var dateTo   = null;
-
-function parseDateStr(dateStr) {
-  if (!dateStr) return null;
-  var m = dateStr.match(/(\d{1,2})\/(\d{1,2})/);
-  if (!m) return null;
-  var day = parseInt(m[1], 10), month = parseInt(m[2], 10), year = 2026;
-  if (month < 3) year = 2027;
-  return year + "-" + String(month).padStart(2,"0") + "-" + String(day).padStart(2,"0");
-}
-
-function onDateChange() {
-  dateFrom = document.getElementById("date-from").value || null;
-  dateTo   = document.getElementById("date-to").value   || null;
-  if (dateFrom && dateTo && dateTo < dateFrom) {
-    dateTo = dateFrom;
-    document.getElementById("date-to").value = dateTo;
-  }
-  var has = dateFrom || dateTo;
-  document.getElementById("date-clear").className = has ? "show" : "";
-  document.getElementById("date-from").className = "date-input" + (dateFrom ? " active" : "");
-  document.getElementById("date-to").className   = "date-input" + (dateTo   ? " active" : "");
-  render();
-}
-
-function clearDate() {
-  dateFrom = dateTo = null;
-  document.getElementById("date-from").value = "";
-  document.getElementById("date-to").value   = "";
-  document.getElementById("date-clear").className = "";
-  document.getElementById("date-from").className  = "date-input";
-  document.getElementById("date-to").className    = "date-input";
-  render();
-}
-
-function matchDate(ev) {
-  if (!dateFrom && !dateTo) return true;
-  var p = parseDateStr(ev.date);
-  if (!p) return true;
-  if (dateFrom && p < dateFrom) return false;
-  if (dateTo   && p > dateTo)   return false;
-  return true;
-}
-
-// ── GENRE FILTER ──────────────────────────────────────────────────
 var GENRES = ["MPB","Samba","Rock","Indie","Hip-hop","Forro","Reggae","Jazz","Afrobeat","Eletronica","Punk","Choro","Grime","Folk","Classical","Post-punk","Experimental"];
 var activeGenres = [];
-
 GENRES.forEach(function(g) {
   var b = document.createElement("button");
   b.className = "chip"; b.textContent = g;
@@ -323,38 +241,87 @@ GENRES.forEach(function(g) {
   document.getElementById("chips").appendChild(b);
 });
 
+var EVENTS = [];
+var dateFrom = null, dateTo = null;
+
+// Load events.json (generated by GitHub Actions weekly)
+fetch("events.json")
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    EVENTS = data.events || [];
+    var updated = data.updated ? new Date(data.updated) : null;
+    if (updated) {
+      document.getElementById("updated").textContent =
+        "atualizado " + updated.toLocaleDateString("pt-BR", {day:"2-digit", month:"short", year:"numeric"});
+    }
+    render();
+  })
+  .catch(function() {
+    document.getElementById("list").innerHTML = "<div class='error'>Erro ao carregar events.json</div>";
+  });
+
+function toggleVenue(btn) {
+  var v = btn.getAttribute("data-v"), on = btn.classList.contains("on");
+  if (on && VENUES.filter(function(x){return x.id!==v&&activeVenues[x.id];}).length===0) return;
+  activeVenues[v] = !on; btn.classList.toggle("on"); render();
+}
+
+function onDateChange() {
+  dateFrom = document.getElementById("date-from").value || null;
+  dateTo   = document.getElementById("date-to").value   || null;
+  if (dateFrom && dateTo && dateTo < dateFrom) { dateTo = dateFrom; document.getElementById("date-to").value = dateTo; }
+  var has = dateFrom || dateTo;
+  document.getElementById("date-clear").className = has ? "clear-btn show" : "clear-btn";
+  document.getElementById("date-from").className = "date-input" + (dateFrom ? " active" : "");
+  document.getElementById("date-to").className   = "date-input" + (dateTo   ? " active" : "");
+  render();
+}
+
+function clearDate() {
+  dateFrom = dateTo = null;
+  document.getElementById("date-from").value = "";
+  document.getElementById("date-to").value   = "";
+  document.getElementById("date-clear").className = "clear-btn";
+  document.getElementById("date-from").className  = "date-input";
+  document.getElementById("date-to").className    = "date-input";
+  render();
+}
+
+function matchDate(ev) {
+  if (!dateFrom && !dateTo) return true;
+  var p = ev.iso || null;
+  if (!p) return true;
+  if (dateFrom && p < dateFrom) return false;
+  if (dateTo   && p > dateTo)   return false;
+  return true;
+}
+
 function matchGenre(ev) {
   if (!activeGenres.length) return false;
-  return activeGenres.some(function(g){ return ev.genre.toLowerCase().indexOf(g.toLowerCase()) >= 0; });
+  return activeGenres.some(function(g){ return (ev.genre||"").toLowerCase().indexOf(g.toLowerCase()) >= 0; });
 }
 
 function dedup(items) {
   var s = {};
   return items.filter(function(e) {
-    var k = (e.name+"|"+e.date+"|"+e.v).toLowerCase().trim();
+    var k = (e.name+"|"+(e.iso||e.date)+"|"+e.v).toLowerCase().trim();
     if (s[k]) return false; s[k]=true; return true;
   });
 }
 
-// ── RENDER ────────────────────────────────────────────────────────
 function render() {
-  var items = dedup(SEED.filter(function(e){ return activeVenues[e.v] && matchDate(e); }));
+  var items = dedup(EVENTS.filter(function(e){ return activeVenues[e.v] && matchDate(e); }));
+  items.sort(function(a,b){ return (matchGenre(b)?1:0) - (matchGenre(a)?1:0); });
 
-  // Sort: genre matches first
-  items.sort(function(a,b){
-    return (matchGenre(b)?1:0) - (matchGenre(a)?1:0);
-  });
-
-  // Count label
   var genN = items.filter(matchGenre).length;
-  var ct = items.length + " EVENTOS";
+  var ct = items.length + " eventos";
   if (dateFrom || dateTo) {
-    var fmt = function(iso){ var d=new Date(iso+"T12:00:00"); return d.toLocaleDateString("pt-BR",{day:"numeric",month:"short"}).toUpperCase(); };
-    if (dateFrom && dateTo && dateFrom !== dateTo) ct += " · " + fmt(dateFrom) + " — " + fmt(dateTo);
-    else if (dateFrom) ct += " · A PARTIR DE " + fmt(dateFrom);
-    else if (dateTo)   ct += " · ATE " + fmt(dateTo);
+    var fmt = function(iso){ var d=new Date(iso+"T12:00:00"); return d.toLocaleDateString("pt-BR",{day:"numeric",month:"short"}); };
+    if (dateFrom && dateTo && dateFrom !== dateTo) ct += "  ·  " + fmt(dateFrom) + " — " + fmt(dateTo);
+    else if (dateFrom) ct += "  ·  a partir de " + fmt(dateFrom);
+    else if (dateTo)   ct += "  ·  até " + fmt(dateTo);
   }
-  if (genN > 0) ct += " · " + genN + " COMBINAM";
+  if (genN > 0) ct += "  ·  " + genN + " combinam";
   document.getElementById("count").textContent = ct;
 
   if (!items.length) {
@@ -363,23 +330,21 @@ function render() {
   }
 
   document.getElementById("list").innerHTML = items.map(function(ev, i) {
-    var vc = VM[ev.v] || {label:ev.v, cls:"p-sesc", color:"#888"};
-    var gm = matchGenre(ev);
-    var cls = "event" + (gm ? " genre-match" : "");
-    return "<a class='" + cls + "' href='" + (ev.url||"#") + "' target='_blank' style='animation-delay:" + (i*10) + "ms'>" +
-      "<div class='when'><strong>" + ev.date + "</strong>" + (ev.time||"") + "</div>" +
+    var vc = VM[ev.v] || {label:ev.v, tag:"t-sesc"};
+    return "<a class='event' data-v='" + ev.v + "' href='" + (ev.url||"#") + "' target='_blank' style='animation-delay:" + (i*8) + "ms'>" +
       "<div>" +
-        "<div class='who'>" + (gm ? "<span style='display:inline-block;width:5px;height:5px;border-radius:50%;background:" + vc.color + ";margin-right:5px;vertical-align:middle'></span>" : "") + ev.name + "</div>" +
-        "<div class='meta'>" + ev.venue + (ev.price ? " &middot; " + ev.price : "") + "</div>" +
-        (ev.detail ? "<div class='dtxt'>" + ev.detail + "</div>" : "") +
+        "<div class='when-day'>" + ev.date + "</div>" +
+        (ev.time ? "<div class='when-time'>" + ev.time + "</div>" : "") +
       "</div>" +
-      "<div><span class='venue-pill " + vc.cls + "'>" + vc.label + "</span></div>" +
+      "<div>" +
+        "<div class='who'>" + ev.name + "</div>" +
+        "<div class='where'>" + ev.venue + (ev.price ? "<span class='price-tag'>" + ev.price + "</span>" : "") + "</div>" +
+        (ev.detail ? "<div class='detail'>" + ev.detail + "</div>" : "") +
+      "</div>" +
+      "<div><span class='vtag " + vc.tag + "'>" + vc.label + "</span></div>" +
     "</a>";
   }).join("");
 }
-
-render();
 </script>
-
 </body>
 </html>
