@@ -1,21 +1,24 @@
 # Shows SP
 
-Agenda de shows em São Paulo com frontend estático no GitHub Pages e geração automatizada de `events.json`.
+Agenda de shows em São Paulo — projeto refatorado em pastas.
 
 ## Estrutura
 
-- `index.html` → frontend estático
-- `events.json` → agenda consolidada usada pelo site
-- `seeds.json` → fallback e seed agrupado por casa
-- `scripts/update_events.py` → pipeline principal de atualização
+```
+shows-sp-refatorado/
+├── index.html
+├── data/
+│   └── events.json
+└── scripts/
+    └── update_events.py
+```
 
-## O que foi refatorado
+## O que mudou
 
-- O projeto deixou de depender de um único bloco `STATIC_EVENTS` gigante.
-- A atualização agora usa arquitetura por fonte.
-- O padrão do Picles foi generalizado para qualquer casa com endpoint direto compatível.
-- Porta e Picles usam consulta direta via Shotgun quando disponível.
-- As demais casas permanecem organizadas em `seeds.json`, prontas para ganhar coletores dedicados.
+- `events.json` foi movido para `data/events.json`.
+- `update_events.py` foi movido para `scripts/update_events.py`.
+- O script foi ajustado para gravar a saída em `data/events.json`.
+- A correção do link da Casa Rockambole já está aplicada.
 
 ## Rodar localmente
 
@@ -24,14 +27,6 @@ python3 scripts/update_events.py
 python3 -m http.server
 ```
 
-## Próximos coletores sugeridos
+## Observação
 
-- Casa de Francisca
-- Cine Joia
-- Bona / Eventim
-- Porta Maldita / Sympla
-- SESC
-
-## Deploy
-
-Publique o conteúdo na raiz de um repositório GitHub Pages.
+Se o `index.html` atual estiver fazendo `fetch("events.json")`, troque para `fetch("data/events.json")`.
