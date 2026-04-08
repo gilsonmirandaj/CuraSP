@@ -1,48 +1,37 @@
 # Shows SP
 
-Agenda de shows em São Paulo — 9 casas independentes e culturais.
+Agenda de shows em São Paulo com frontend estático no GitHub Pages e geração automatizada de `events.json`.
 
-## Como subir no GitHub Pages
+## Estrutura
 
-1. Crie um repositório **público** no GitHub chamado `shows-sp`
-2. Suba todos os arquivos deste projeto para a branch `main`
-3. Vá em **Settings → Pages → Source → Deploy from branch → main / root**
-4. Acesse em `https://SEU_USUARIO.github.io/shows-sp/`
+- `index.html` → frontend estático
+- `events.json` → agenda consolidada usada pelo site
+- `seeds.json` → fallback e seed agrupado por casa
+- `scripts/update_events.py` → pipeline principal de atualização
 
-## Como funciona
+## O que foi refatorado
 
-```
-index.html          → frontend estático, lê events.json
-events.json         → dados dos eventos (gerado automaticamente)
-scripts/update_events.py  → busca eventos novos do Shotgun + seed estático
-.github/workflows/update.yml → roda toda segunda-feira às 8h UTC
-```
-
-O GitHub Actions roda o script semanalmente, busca a programação do Picles direto
-da API do Shotgun, e faz commit do `events.json` atualizado no repositório.
-O site lê esse arquivo estático — sem backend, sem chaves de API expostas.
+- O projeto deixou de depender de um único bloco `STATIC_EVENTS` gigante.
+- A atualização agora usa arquitetura por fonte.
+- O padrão do Picles foi generalizado para qualquer casa com endpoint direto compatível.
+- Porta e Picles usam consulta direta via Shotgun quando disponível.
+- As demais casas permanecem organizadas em `seeds.json`, prontas para ganhar coletores dedicados.
 
 ## Rodar localmente
 
 ```bash
-python3 scripts/update_events.py   # gera events.json
-python3 -m http.server             # serve em localhost:8000
+python3 scripts/update_events.py
+python3 -m http.server
 ```
 
-## Casas cobertas
+## Próximos coletores sugeridos
 
-| Casa | Fonte |
-|------|-------|
-| SESC | Seed manual (programação mensal) |
-| Cine Joia | Seed + links Fastix/Shotgun/Songkick |
-| Balaclava | Seed manual |
-| Casa de Francisca | Seed manual |
-| Porta Maldita | Seed manual (Sympla) |
-| Porta Pinheiros | Seed manual (Shotgun) |
-| Picles Cardeal | **API ao vivo do Shotgun** (atualiza toda segunda) |
-| Casa Rockambole | Seed manual |
-| Bona Casa de Música | Seed manual (Eventim) |
+- Casa de Francisca
+- Cine Joia
+- Bona / Eventim
+- Porta Maldita / Sympla
+- SESC
 
-## Forçar atualização manual
+## Deploy
 
-No GitHub, vá em **Actions → Atualizar eventos → Run workflow**.
+Publique o conteúdo na raiz de um repositório GitHub Pages.
