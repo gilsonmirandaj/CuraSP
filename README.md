@@ -48,6 +48,6 @@ python3 -m http.server             # serve em localhost:8000
 No GitHub, vá em **Actions → Atualizar eventos → Run workflow**.
 
 
-## Workflow
+## Workflow de deploy
 
-O workflow correto está em `.github/workflows/update-events.yml` e atualiza `data/events.json`.
+O workflow correto está em `.github/workflows/update-events.yml` e atualiza `data/events.json` via `scripts/update_events.py`.
