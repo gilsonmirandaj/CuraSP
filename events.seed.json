@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-08T01:56:39Z",
+  "updated": "2026-04-07T23:54:58Z",
   "events": [
     {
       "name": "Ryosuke Kiyasu + Aun Helden",
@@ -38,18 +38,6 @@
       "url": "https://meaple.com.br/selorockambole/no-hope-fest"
     },
     {
-      "name": "Felipe Tavora + Jalt + Cha Preto",
-      "detail": "Indie rock",
-      "date": "Sex 04/4",
-      "time": "20h",
-      "iso": "2026-04-04",
-      "venue": "Porta Maldita",
-      "v": "maldita",
-      "genre": "Indie Rock",
-      "price": "R$25-30",
-      "url": "https://www.sympla.com.br/evento/a-porta-maldita/3341881"
-    },
-    {
       "name": "Mac DeMarco",
       "detail": "",
       "date": "Sab 04/4",
@@ -60,6 +48,18 @@
       "genre": "Indie/Pop",
       "price": "",
       "url": "https://www.ingresse.com/macdemarco-sp2/"
+    },
+    {
+      "name": "Felipe Tavora + Jalt + Cha Preto",
+      "detail": "Indie rock",
+      "date": "Sex 04/4",
+      "time": "20h",
+      "iso": "2026-04-04",
+      "venue": "Porta Maldita",
+      "v": "maldita",
+      "genre": "Indie Rock",
+      "price": "R$25-30",
+      "url": "https://www.sympla.com.br/evento/a-porta-maldita/3341881"
     },
     {
       "name": "Mac DeMarco",
@@ -74,18 +74,6 @@
       "url": "https://www.ingresse.com/macdemarco-sp2/"
     },
     {
-      "name": "Jesse Harris",
-      "detail": "If You Believed In Me",
-      "date": "Ter 07/4",
-      "time": "20h",
-      "iso": "2026-04-07",
-      "venue": "Bona Casa de Musica",
-      "v": "bona",
-      "genre": "Folk/Jazz",
-      "price": "R$60",
-      "url": "https://www.eventim.com.br/artist/bona-casa-musica/jesse-harris/"
-    },
-    {
       "name": "Nicolas Krassik e Pablo Moura",
       "detail": "Forro franco-brasileiro",
       "date": "Ter 07/4",
@@ -96,6 +84,18 @@
       "genre": "Forro",
       "price": "",
       "url": "https://bileto.sympla.com.br/event/117603"
+    },
+    {
+      "name": "Jesse Harris",
+      "detail": "If You Believed In Me",
+      "date": "Ter 07/4",
+      "time": "20h",
+      "iso": "2026-04-07",
+      "venue": "Bona Casa de Musica",
+      "v": "bona",
+      "genre": "Folk/Jazz",
+      "price": "R$60",
+      "url": "https://www.eventim.com.br/artist/bona-casa-musica/jesse-harris/"
     },
     {
       "name": "Public Image Ltd.",
@@ -110,16 +110,16 @@
       "url": "https://fastix.com.br/events/public-image-ltd-em-sao-paulo"
     },
     {
-      "name": "Guilherme Neves",
-      "detail": "Samba Timido - feat. Cristovao Bastos, Renato Braz",
+      "name": "Romulo Froes",
+      "detail": "Lancamento Boneca Russa",
       "date": "Qua 08/4",
-      "time": "21h",
+      "time": "21h30",
       "iso": "2026-04-08",
-      "venue": "Bona Casa de Musica",
-      "v": "bona",
-      "genre": "Samba/MPB",
-      "price": "R$60",
-      "url": "https://www.eventim.com.br/artist/bona-casa-musica/guilherme-neves-samba-timido/"
+      "venue": "Francisca Salao",
+      "v": "francisca",
+      "genre": "MPB",
+      "price": "",
+      "url": "https://bileto.sympla.com.br/event/117567"
     },
     {
       "name": "Pagode da 27",
@@ -134,16 +134,16 @@
       "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
-      "name": "Romulo Froes",
-      "detail": "Lancamento Boneca Russa",
+      "name": "Guilherme Neves",
+      "detail": "Samba Timido - feat. Cristovao Bastos, Renato Braz",
       "date": "Qua 08/4",
-      "time": "21h30",
+      "time": "21h",
       "iso": "2026-04-08",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://bileto.sympla.com.br/event/117567"
+      "venue": "Bona Casa de Musica",
+      "v": "bona",
+      "genre": "Samba/MPB",
+      "price": "R$60",
+      "url": "https://www.eventim.com.br/artist/bona-casa-musica/guilherme-neves-samba-timido/"
     },
     {
       "name": "Caique Tostes",
@@ -156,6 +156,18 @@
       "genre": "MPB",
       "price": "Gratis",
       "url": "https://www.sescsp.org.br/programacao/"
+    },
+    {
+      "name": "Aurea Martins e Cristovao Bastos",
+      "detail": "Feat. Renato Braz",
+      "date": "Qui 09/4",
+      "time": "21h30",
+      "iso": "2026-04-09",
+      "venue": "Francisca Salao",
+      "v": "francisca",
+      "genre": "MPB/Samba",
+      "price": "",
+      "url": "https://bileto.sympla.com.br/event/117570"
     },
     {
       "name": "Lan Lanh convida Chico Chico",
@@ -182,16 +194,28 @@
       "url": "https://shotgun.live/en/venues/picles"
     },
     {
-      "name": "Aurea Martins e Cristovao Bastos",
-      "detail": "Feat. Renato Braz",
-      "date": "Qui 09/4",
-      "time": "21h30",
-      "iso": "2026-04-09",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB/Samba",
+      "name": "Negritude Jr.",
+      "detail": "Show",
+      "date": "Sex 10/4",
+      "time": "20h30",
+      "iso": "2026-04-10",
+      "venue": "SESC SP",
+      "v": "sesc",
+      "genre": "Pagode",
       "price": "",
-      "url": "https://bileto.sympla.com.br/event/117570"
+      "url": "https://www.sescsp.org.br/programacao/"
+    },
+    {
+      "name": "Horoya 10 Anos",
+      "detail": "Afrobeat / jazz",
+      "date": "Sex 10/4",
+      "time": "22h",
+      "iso": "2026-04-10",
+      "venue": "Francisca Porao",
+      "v": "francisca",
+      "genre": "Afrobeat",
+      "price": "",
+      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Salvador Sobral",
@@ -220,50 +244,14 @@
     {
       "name": "Negritude Jr.",
       "detail": "Show",
-      "date": "Sex 10/4",
+      "date": "Sab 11/4",
       "time": "20h30",
-      "iso": "2026-04-10",
+      "iso": "2026-04-11",
       "venue": "SESC SP",
       "v": "sesc",
       "genre": "Pagode",
       "price": "",
       "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Horoya 10 Anos",
-      "detail": "Afrobeat / jazz",
-      "date": "Sex 10/4",
-      "time": "22h",
-      "iso": "2026-04-10",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Afrobeat",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Pagode da Dona Ivone",
-      "detail": "",
-      "date": "Sab 11/4",
-      "time": "17h",
-      "iso": "2026-04-11",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "R$26",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "ANOMALIA",
-      "detail": "AKA AFK, RUA 06, OKIE + mais",
-      "date": "Sab 11/4",
-      "time": "20h",
-      "iso": "2026-04-11",
-      "venue": "Porta Maldita",
-      "v": "maldita",
-      "genre": "Grime/Trap",
-      "price": "R$20",
-      "url": "https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672"
     },
     {
       "name": "Oriente",
@@ -278,16 +266,16 @@
       "url": "https://www.songkick.com/concerts/43045390"
     },
     {
-      "name": "Negritude Jr.",
-      "detail": "Show",
+      "name": "Pagode da Dona Ivone",
+      "detail": "",
       "date": "Sab 11/4",
-      "time": "20h30",
+      "time": "17h",
       "iso": "2026-04-11",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Pagode",
-      "price": "",
-      "url": "https://www.sescsp.org.br/programacao/"
+      "venue": "Francisca Porao",
+      "v": "francisca",
+      "genre": "Samba",
+      "price": "R$26",
+      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Joao Camarero",
@@ -300,6 +288,30 @@
       "genre": "MPB",
       "price": "",
       "url": "https://bileto.sympla.com.br/event/117313"
+    },
+    {
+      "name": "ANOMALIA",
+      "detail": "AKA AFK, RUA 06, OKIE + mais",
+      "date": "Sab 11/4",
+      "time": "20h",
+      "iso": "2026-04-11",
+      "venue": "Porta Maldita",
+      "v": "maldita",
+      "genre": "Grime/Trap",
+      "price": "R$20",
+      "url": "https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672"
+    },
+    {
+      "name": "Mirim e Victor Xama",
+      "detail": "",
+      "date": "Dom 12/4",
+      "time": "",
+      "iso": "2026-04-12",
+      "venue": "SESC SP",
+      "v": "sesc",
+      "genre": "Rap",
+      "price": "",
+      "url": "https://www.sescsp.org.br/programacao/"
     },
     {
       "name": "Roda Delas",
@@ -338,16 +350,16 @@
       "url": "https://www.eventim.com.br/artist/m-o-t-/"
     },
     {
-      "name": "Mirim e Victor Xama",
+      "name": "Anna Tsuchiya",
       "detail": "",
-      "date": "Dom 12/4",
+      "date": "Ter 14/4",
       "time": "",
-      "iso": "2026-04-12",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Rap",
+      "iso": "2026-04-14",
+      "venue": "Cine Joia",
+      "v": "cine",
+      "genre": "Rock/Pop",
       "price": "",
-      "url": "https://www.sescsp.org.br/programacao/"
+      "url": "https://www.songkick.com/concerts/43013462"
     },
     {
       "name": "Bruna Lucchesi",
@@ -362,16 +374,16 @@
       "url": "https://bileto.sympla.com.br/event/117603"
     },
     {
-      "name": "Anna Tsuchiya",
-      "detail": "",
-      "date": "Ter 14/4",
-      "time": "",
-      "iso": "2026-04-14",
-      "venue": "Cine Joia",
-      "v": "cine",
-      "genre": "Rock/Pop",
+      "name": "Andre Mehmari",
+      "detail": "2a Mostra de Piano",
+      "date": "Qua 15/4",
+      "time": "21h30",
+      "iso": "2026-04-15",
+      "venue": "Francisca Salao",
+      "v": "francisca",
+      "genre": "Classical",
       "price": "",
-      "url": "https://www.songkick.com/concerts/43013462"
+      "url": "https://bileto.sympla.com.br/event/117567"
     },
     {
       "name": "Marcelo Paiva e Luiza Villa",
@@ -386,18 +398,6 @@
       "url": "https://www.eventim.com.br/artist/luiza-villa/"
     },
     {
-      "name": "Andre Mehmari",
-      "detail": "2a Mostra de Piano",
-      "date": "Qua 15/4",
-      "time": "21h30",
-      "iso": "2026-04-15",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Classical",
-      "price": "",
-      "url": "https://bileto.sympla.com.br/event/117567"
-    },
-    {
       "name": "Mad Professor",
       "detail": "Com Liquidus Ambiento",
       "date": "Qui 16/4",
@@ -408,18 +408,6 @@
       "genre": "Reggae",
       "price": "",
       "url": "https://www.songkick.com/concerts/43083456"
-    },
-    {
-      "name": "X.i.s. + DJ Erick Jay",
-      "detail": "",
-      "date": "Qui 16/4",
-      "time": "20h",
-      "iso": "2026-04-16",
-      "venue": "Picles Cardeal",
-      "v": "picles",
-      "genre": "Hip-hop",
-      "price": "",
-      "url": "https://shotgun.live/en/venues/picles"
     },
     {
       "name": "Bela Ciavatta",
@@ -446,26 +434,14 @@
       "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
-      "name": "Animais + Surto Coletivo + All Star Dogs",
-      "detail": "Rock alternativo",
-      "date": "Sex 17/4",
-      "time": "20h",
-      "iso": "2026-04-17",
-      "venue": "Porta Maldita",
-      "v": "maldita",
-      "genre": "Rock",
-      "price": "R$25-30",
-      "url": "https://www.sympla.com.br/evento/a-porta-maldita/3369392"
-    },
-    {
-      "name": "CACO + Juia",
+      "name": "X.i.s. + DJ Erick Jay",
       "detail": "",
-      "date": "Sex 17/4",
+      "date": "Qui 16/4",
       "time": "20h",
-      "iso": "2026-04-17",
+      "iso": "2026-04-16",
       "venue": "Picles Cardeal",
       "v": "picles",
-      "genre": "Indie",
+      "genre": "Hip-hop",
       "price": "",
       "url": "https://shotgun.live/en/venues/picles"
     },
@@ -492,6 +468,30 @@
       "genre": "Choro",
       "price": "",
       "url": "https://casadefrancisca.art.br/novo/programacao"
+    },
+    {
+      "name": "Animais + Surto Coletivo + All Star Dogs",
+      "detail": "Rock alternativo",
+      "date": "Sex 17/4",
+      "time": "20h",
+      "iso": "2026-04-17",
+      "venue": "Porta Maldita",
+      "v": "maldita",
+      "genre": "Rock",
+      "price": "R$25-30",
+      "url": "https://www.sympla.com.br/evento/a-porta-maldita/3369392"
+    },
+    {
+      "name": "CACO + Juia",
+      "detail": "",
+      "date": "Sex 17/4",
+      "time": "20h",
+      "iso": "2026-04-17",
+      "venue": "Picles Cardeal",
+      "v": "picles",
+      "genre": "Indie",
+      "price": "",
+      "url": "https://shotgun.live/en/venues/picles"
     },
     {
       "name": "DJ Nelson Maca",
@@ -554,18 +554,6 @@
       "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
-      "name": "Ze Ibarra",
-      "detail": "",
-      "date": "Qui 23/4",
-      "time": "19h",
-      "iso": "2026-04-23",
-      "venue": "Cine Joia",
-      "v": "cine",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://www.songkick.com/concerts/43094750"
-    },
-    {
       "name": "Show part. Djonga",
       "detail": "Show autoral",
       "date": "Qui 23/4",
@@ -576,6 +564,18 @@
       "genre": "Hip-hop",
       "price": "",
       "url": "https://www.sescsp.org.br/?s=Djonga"
+    },
+    {
+      "name": "Ze Ibarra",
+      "detail": "",
+      "date": "Qui 23/4",
+      "time": "19h",
+      "iso": "2026-04-23",
+      "venue": "Cine Joia",
+      "v": "cine",
+      "genre": "MPB",
+      "price": "",
+      "url": "https://www.songkick.com/concerts/43094750"
     },
     {
       "name": "Banda Gloria",
@@ -614,6 +614,18 @@
       "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
+      "name": "Show part. Djonga",
+      "detail": "",
+      "date": "Sex 24/4",
+      "time": "21h",
+      "iso": "2026-04-24",
+      "venue": "SESC SP",
+      "v": "sesc",
+      "genre": "Hip-hop",
+      "price": "",
+      "url": "https://www.sescsp.org.br/?s=Djonga"
+    },
+    {
       "name": "Mari Jasca",
       "detail": "Show solo Disparada",
       "date": "Sex 24/4",
@@ -638,18 +650,6 @@
       "url": "https://shotgun.live/en/events/maglorenocinejoia"
     },
     {
-      "name": "Show part. Djonga",
-      "detail": "",
-      "date": "Sex 24/4",
-      "time": "21h",
-      "iso": "2026-04-24",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Hip-hop",
-      "price": "",
-      "url": "https://www.sescsp.org.br/?s=Djonga"
-    },
-    {
       "name": "Explode Coracao 10 Anos",
       "detail": "Tributo Maria Bethania",
       "date": "Sex 24/4",
@@ -671,18 +671,6 @@
       "v": "francisca",
       "genre": "Rap",
       "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Samba do Aguida",
-      "detail": "",
-      "date": "Sab 25/4",
-      "time": "17h",
-      "iso": "2026-04-25",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "R$26",
       "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
@@ -720,6 +708,18 @@
       "genre": "MPB",
       "price": "",
       "url": "https://www.sescsp.org.br/programacao/"
+    },
+    {
+      "name": "Samba do Aguida",
+      "detail": "",
+      "date": "Sab 25/4",
+      "time": "17h",
+      "iso": "2026-04-25",
+      "venue": "Francisca Porao",
+      "v": "francisca",
+      "genre": "Samba",
+      "price": "R$26",
+      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Sarah Leandro",
@@ -852,53 +852,6 @@
       "genre": "MPB",
       "price": "R$60",
       "url": "https://www.eventim.com.br/artist/bona-casa-musica/"
-    }
-  ],
-  "sources": [
-    {
-      "source": "sesc",
-      "count": 15,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "cine",
-      "count": 13,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "balaclava",
-      "count": 2,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "francisca",
-      "count": 21,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "maldita",
-      "count": 5,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "porta",
-      "count": 2,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "picles",
-      "count": 5,
-      "mode": "fallback: HTTP Error 429: Too Many Requests"
-    },
-    {
-      "source": "rockambole",
-      "count": 1,
-      "mode": "live_or_module"
-    },
-    {
-      "source": "bona",
-      "count": 7,
-      "mode": "live_or_module"
     }
   ]
 }

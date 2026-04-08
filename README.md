@@ -1,63 +1,60 @@
 # Shows SP
 
-Agenda de shows em São Paulo — projeto refatorado em pastas.
+Agenda de shows em São Paulo — 9 casas independentes e culturais.
 
-## Estrutura
+## Como subir no GitHub Pages
+
+1. Crie um repositório **público** no GitHub chamado `shows-sp`
+2. Suba todos os arquivos deste projeto para a branch `main`
+3. Vá em **Settings → Pages → Source → Deploy from branch → main / root**
+4. Acesse em `https://SEU_USUARIO.github.io/shows-sp/`
+
+## Como funciona
 
 ```
-shows-sp-refatorado/
-├── index.html
-├── data/
-│   └── events.json
-└── scripts/
-    └── update_events.py
+index.html          → frontend estático, lê events.json
+events.json         → dados dos eventos (gerado automaticamente)
+scripts/update_events.py  → busca eventos novos do Shotgun + seed estático
+.github/workflows/update.yml → roda toda segunda-feira às 8h UTC
 ```
 
-## O que mudou
-
-- `events.json` foi movido para `data/events.json`.
-- `update_events.py` foi movido para `scripts/update_events.py`.
-- O script foi ajustado para gravar a saída em `data/events.json`.
-- A correção do link da Casa Rockambole já está aplicada.
+O GitHub Actions roda o script semanalmente, busca a programação do Picles direto
+da API do Shotgun, e faz commit do `events.json` atualizado no repositório.
+O site lê esse arquivo estático — sem backend, sem chaves de API expostas.
 
 ## Rodar localmente
 
 ```bash
-python3 scripts/update_events.py
-python3 -m http.server
+python3 scripts/update_events.py   # gera events.json
+python3 -m http.server             # serve em localhost:8000
 ```
 
-## Observação
+## Casas cobertas
 
-Se o `index.html` atual estiver fazendo `fetch("events.json")`, troque para `fetch("data/events.json")`.
+| Casa | Fonte |
+|------|-------|
+| SESC | Seed manual (programação mensal) |
+| Cine Joia | Seed + links Fastix/Shotgun/Songkick |
+| Balaclava | Seed manual |
+| Casa de Francisca | Seed manual |
+| Porta Maldita | Seed manual (Sympla) |
+| Porta Pinheiros | Seed manual (Shotgun) |
+| Picles Cardeal | **API ao vivo do Shotgun** (atualiza toda segunda) |
+| Casa Rockambole | Seed manual |
+| Bona Casa de Música | Seed manual (Eventim) |
 
+## Forçar atualização manual
 
-## Ajustes aplicados
-
-- Links da Casa de Francisca padronizados para a página oficial da casa na Sympla e para a página de programação oficial.
-
-
-## Casa de Francisca
-
-O script foi preparado para normalizar os eventos da Casa de Francisca a partir da página oficial na Sympla:
-
-- Base oficial: `https://site.bileto.sympla.com.br/casadefrancisca/`
-- Eventos da Francisca passam por normalização automática de URL.
-- Links antigos de `bileto.sympla.com.br/event/...` e de programação genérica são substituídos pela base oficial da casa.
-
-Se você quiser a etapa seguinte, dá para evoluir esse normalizador para um scraper que descubra e consulte cada evento individualmente a partir da página oficial.
-
-- Eventos da Casa de Francisca restaurados no `events.json` do pacote e com links padronizados.
+No GitHub, vá em **Actions → Atualizar eventos → Run workflow**.
 
 
-## Coletor da Francisca
+## Refatoração API-first
 
-O projeto agora possui um coletor dedicado da Casa de Francisca no script:
+Esta versão foi refatorada para um pipeline modular por casa em `scripts/sources/`.
 
-- `fetch_francisca_from_seed()` concentra o tratamento da casa.
-- A normalização das URLs da Francisca fica centralizada.
-- Os eventos da Francisca deixam de depender do fluxo genérico dos demais seeds.
+- `picles.py`: integração direta com Shotgun, como já existia no projeto original.
+- `francisca.py`: coletor dedicado, com tentativa de leitura da página oficial e fallback no seed.
+- `cine.py`, `sesc.py`, `balaclava.py`, `maldita.py`, `porta.py`, `rockambole.py`, `bona.py`: módulos separados por casa, já preparados para troca do fallback por integrações diretas específicas sem mexer no frontend.
+- `fallback/static_events.py`: fallback isolado por casa, extraído do `events.json` atual.
 
-Isso facilita a próxima etapa de trocar o seed por captura direta dos eventos individuais da Sympla.
-
-- Casa de Francisca agora tem fallback visível apontando para a página oficial da Sympla, evitando desaparecer da interface.
+O frontend continua consumindo apenas `events.json`, então a migração de cada casa pode ser feita individualmente sem quebrar o site.
