@@ -48,13 +48,6 @@ python3 -m http.server             # serve em localhost:8000
 No GitHub, vá em **Actions → Atualizar eventos → Run workflow**.
 
 
-## Refatoração API-first
+## Workflow
 
-Esta versão foi refatorada para um pipeline modular por casa em `scripts/sources/`.
-
-- `picles.py`: integração direta com Shotgun, como já existia no projeto original.
-- `francisca.py`: coletor dedicado, com tentativa de leitura da página oficial e fallback no seed.
-- `cine.py`, `sesc.py`, `balaclava.py`, `maldita.py`, `porta.py`, `rockambole.py`, `bona.py`: módulos separados por casa, já preparados para troca do fallback por integrações diretas específicas sem mexer no frontend.
-- `fallback/static_events.py`: fallback isolado por casa, extraído do `events.json` atual.
-
-O frontend continua consumindo apenas `events.json`, então a migração de cada casa pode ser feita individualmente sem quebrar o site.
+O workflow correto está em `.github/workflows/update-events.yml` e atualiza `data/events.json`.
