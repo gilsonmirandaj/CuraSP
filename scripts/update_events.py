@@ -93,6 +93,17 @@ def infer_genre(name):
     if re.search(r'forro|baiao', n): return "Forro"
     return "Indie Rock"
 
+
+
+def fetch_francisca_from_seed():
+    result = []
+    for event in STATIC_EVENTS:
+        if event.get("v") != "francisca":
+            continue
+        normalized = normalize_static_event(event)
+        result.append(normalized)
+    return result
+
 def fetch_picles():
     url = "https://shotgun.live/api/organizations/picles/events?language=pt-br"
     req = urllib.request.Request(url, headers={
@@ -138,7 +149,9 @@ PICLES_FALLBACK = [
 
 def main():
     picles = fetch_picles() or PICLES_FALLBACK
-    all_events = [normalize_static_event(e) for e in STATIC_EVENTS] + picles
+    francisca = fetch_francisca_from_seed()
+    static_non_francisca = [normalize_static_event(e) for e in STATIC_EVENTS if e.get("v") != "francisca"]
+    all_events = static_non_francisca + francisca + picles
 
     seen = set()
     deduped = []

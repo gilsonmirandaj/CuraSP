@@ -46,3 +46,16 @@ O script foi preparado para normalizar os eventos da Casa de Francisca a partir 
 - Links antigos de `bileto.sympla.com.br/event/...` e de programação genérica são substituídos pela base oficial da casa.
 
 Se você quiser a etapa seguinte, dá para evoluir esse normalizador para um scraper que descubra e consulte cada evento individualmente a partir da página oficial.
+
+- Eventos da Casa de Francisca restaurados no `events.json` do pacote e com links padronizados.
+
+
+## Coletor da Francisca
+
+O projeto agora possui um coletor dedicado da Casa de Francisca no script:
+
+- `fetch_francisca_from_seed()` concentra o tratamento da casa.
+- A normalização das URLs da Francisca fica centralizada.
+- Os eventos da Francisca deixam de depender do fluxo genérico dos demais seeds.
+
+Isso facilita a próxima etapa de trocar o seed por captura direta dos eventos individuais da Sympla.
