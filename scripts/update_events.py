@@ -149,7 +149,7 @@ PICLES_FALLBACK = [
 
 def main():
     picles = fetch_picles() or PICLES_FALLBACK
-    francisca = fetch_francisca_from_seed()
+    francisca = fetch_francisca_from_seed() or FRANCISCA_FALLBACK_EVENTS
     static_non_francisca = [normalize_static_event(e) for e in STATIC_EVENTS if e.get("v") != "francisca"]
     all_events = static_non_francisca + francisca + picles
 
@@ -174,3 +174,8 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+FRANCISCA_FALLBACK_EVENTS = [
+    {"name":"Casa de Francisca — programação oficial","detail":"Consulte a agenda atual da casa na página oficial da Sympla","date":"2026","time":"","iso":"","venue":"Casa de Francisca","v":"francisca","genre":"MPB / Samba / Jazz / Brasilidades","price":"","url":"https://site.bileto.sympla.com.br/casadefrancisca/"}
+]

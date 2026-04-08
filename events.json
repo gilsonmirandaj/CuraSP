@@ -50,18 +50,6 @@
       "url": "https://www.eventim.com.br/artist/bona-casa-musica/jesse-harris/"
     },
     {
-      "name": "Nicolas Krassik e Pablo Moura",
-      "detail": "Forro franco-brasileiro",
-      "date": "Ter 07/4",
-      "time": "21h30",
-      "iso": "2026-04-07",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Forro",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
       "name": "Public Image Ltd.",
       "detail": "Com The Gulps",
       "date": "Qua 08/4",
@@ -72,30 +60,6 @@
       "genre": "Post-punk",
       "price": "",
       "url": "https://fastix.com.br/events/public-image-ltd-em-sao-paulo"
-    },
-    {
-      "name": "Romulo Froes",
-      "detail": "Lancamento Boneca Russa",
-      "date": "Qua 08/4",
-      "time": "21h30",
-      "iso": "2026-04-08",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
-      "name": "Pagode da 27",
-      "detail": "",
-      "date": "Qua 08/4",
-      "time": "21h30",
-      "iso": "2026-04-08",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "Gratis",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Caique Tostes",
@@ -122,18 +86,6 @@
       "url": "https://shotgun.live/en/venues/picles"
     },
     {
-      "name": "Aurea Martins e Cristovao Bastos",
-      "detail": "Feat. Renato Braz",
-      "date": "Qui 09/4",
-      "time": "21h30",
-      "iso": "2026-04-09",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB/Samba",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
       "name": "Negritude Jr.",
       "detail": "Show",
       "date": "Sex 10/4",
@@ -144,18 +96,6 @@
       "genre": "Pagode",
       "price": "",
       "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Horoya 10 Anos",
-      "detail": "Afrobeat / jazz",
-      "date": "Sex 10/4",
-      "time": "22h",
-      "iso": "2026-04-10",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Afrobeat",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Negritude Jr.",
@@ -182,30 +122,6 @@
       "url": "https://www.songkick.com/concerts/43045390"
     },
     {
-      "name": "Pagode da Dona Ivone",
-      "detail": "",
-      "date": "Sab 11/4",
-      "time": "17h",
-      "iso": "2026-04-11",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "R$26",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Joao Camarero",
-      "detail": "Feat. Tigana Santana",
-      "date": "Sab 11/4",
-      "time": "22h",
-      "iso": "2026-04-11",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
       "name": "Mirim e Victor Xama",
       "detail": "",
       "date": "Dom 12/4",
@@ -216,18 +132,6 @@
       "genre": "Rap",
       "price": "",
       "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Roda Delas",
-      "detail": "Canta compositoras do samba",
-      "date": "Dom 12/4",
-      "time": "17h",
-      "iso": "2026-04-12",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "Gratis",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Anna Tsuchiya",
@@ -242,30 +146,6 @@
       "url": "https://www.songkick.com/concerts/43013462"
     },
     {
-      "name": "Bruna Lucchesi",
-      "detail": "BANDOLEIRA",
-      "date": "Ter 14/4",
-      "time": "21h30",
-      "iso": "2026-04-14",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "MPB/Indie",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
-      "name": "Andre Mehmari",
-      "detail": "2a Mostra de Piano",
-      "date": "Qua 15/4",
-      "time": "21h30",
-      "iso": "2026-04-15",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Classical",
-      "price": "",
-      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
-    },
-    {
       "name": "Mad Professor",
       "detail": "Com Liquidus Ambiento",
       "date": "Qui 16/4",
@@ -278,30 +158,6 @@
       "url": "https://www.songkick.com/concerts/43083456"
     },
     {
-      "name": "Bela Ciavatta",
-      "detail": "Feito o Sol",
-      "date": "Qui 16/4",
-      "time": "21h30",
-      "iso": "2026-04-16",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Afro-Bras.",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Cida Moreira",
-      "detail": "A Musica de Angela Ro Ro",
-      "date": "Qui 16/4",
-      "time": "21h30",
-      "iso": "2026-04-16",
-      "venue": "Francisca Sala B",
-      "v": "francisca",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
       "name": "Cachorro Grande",
       "detail": "",
       "date": "Sex 17/4",
@@ -312,18 +168,6 @@
       "genre": "Rock",
       "price": "",
       "url": "https://www.songkick.com/concerts/43045390"
-    },
-    {
-      "name": "Toninho Ferragutti e Nailor Proveta",
-      "detail": "Espelho do Som",
-      "date": "Sex 17/4",
-      "time": "22h",
-      "iso": "2026-04-17",
-      "venue": "Francisca Sala B",
-      "v": "francisca",
-      "genre": "Choro",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "DJ Nelson Maca",
@@ -362,18 +206,6 @@
       "url": "https://www.sescsp.org.br/programacao/"
     },
     {
-      "name": "Anais Sylla",
-      "detail": "Feat. Xenia Franca",
-      "date": "Qua 22/4",
-      "time": "21h30",
-      "iso": "2026-04-22",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Afro/MPB",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
       "name": "Show part. Djonga",
       "detail": "Show autoral",
       "date": "Qui 23/4",
@@ -396,42 +228,6 @@
       "genre": "MPB",
       "price": "",
       "url": "https://www.songkick.com/concerts/43094750"
-    },
-    {
-      "name": "Banda Gloria",
-      "detail": "Canta Chico Buarque",
-      "date": "Qui 23/4",
-      "time": "21h30",
-      "iso": "2026-04-23",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "MPB/Samba",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Blubell",
-      "detail": "Vaudeville",
-      "date": "Qui 23/4",
-      "time": "21h30",
-      "iso": "2026-04-23",
-      "venue": "Francisca Sala B",
-      "v": "francisca",
-      "genre": "MPB/Pop",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Nega Duda",
-      "detail": "Samba de Roda",
-      "date": "Qui 23/4",
-      "time": "21h30",
-      "iso": "2026-04-23",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "Gratis",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Show part. Djonga",
@@ -470,30 +266,6 @@
       "url": "https://shotgun.live/en/events/maglorenocinejoia"
     },
     {
-      "name": "Explode Coracao 10 Anos",
-      "detail": "Tributo Maria Bethania",
-      "date": "Sex 24/4",
-      "time": "22h",
-      "iso": "2026-04-24",
-      "venue": "Francisca Salao",
-      "v": "francisca",
-      "genre": "Samba/MPB",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
-      "name": "Rodrigo Ogi e nILL",
-      "detail": "Manual Para Nao Desaparecer",
-      "date": "Sex 24/4",
-      "time": "22h",
-      "iso": "2026-04-24",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Rap",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
       "name": "Catto",
       "detail": "Caminhos Selvagens + tributo Gal",
       "date": "Sab 25/4",
@@ -530,18 +302,6 @@
       "url": "https://www.sescsp.org.br/programacao/"
     },
     {
-      "name": "Samba do Aguida",
-      "detail": "",
-      "date": "Sab 25/4",
-      "time": "17h",
-      "iso": "2026-04-25",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "Samba",
-      "price": "R$26",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
-    },
-    {
       "name": "Sarah Leandro",
       "detail": "Forro de Bodoco",
       "date": "Dom 26/4",
@@ -576,18 +336,6 @@
       "genre": "Samba",
       "price": "Gratis",
       "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Jucara Marcal, Suzana Salles e Kiko Dinucci",
-      "detail": "Cantam Itamar",
-      "date": "Qua 29/4",
-      "time": "21h30",
-      "iso": "2026-04-29",
-      "venue": "Francisca Porao",
-      "v": "francisca",
-      "genre": "MPB",
-      "price": "",
-      "url": "https://casadefrancisca.art.br/novo/programacao"
     },
     {
       "name": "Alma Djem",
@@ -648,6 +396,18 @@
       "genre": "Post-punk",
       "price": "",
       "url": "https://ingresse.com/shame-sp"
+    },
+    {
+      "name": "Casa de Francisca — programação oficial",
+      "detail": "Consulte a agenda atual da casa na página oficial da Sympla",
+      "date": "2026",
+      "time": "",
+      "iso": "",
+      "venue": "Casa de Francisca",
+      "v": "francisca",
+      "genre": "MPB / Samba / Jazz / Brasilidades",
+      "price": "",
+      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
     }
   ]
 }

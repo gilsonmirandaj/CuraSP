@@ -59,3 +59,5 @@ O projeto agora possui um coletor dedicado da Casa de Francisca no script:
 - Os eventos da Francisca deixam de depender do fluxo genérico dos demais seeds.
 
 Isso facilita a próxima etapa de trocar o seed por captura direta dos eventos individuais da Sympla.
+
+- Casa de Francisca agora tem fallback visível apontando para a página oficial da Sympla, evitando desaparecer da interface.
