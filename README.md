@@ -35,3 +35,14 @@ Se o `index.html` atual estiver fazendo `fetch("events.json")`, troque para `fet
 ## Ajustes aplicados
 
 - Links da Casa de Francisca padronizados para a página oficial da casa na Sympla e para a página de programação oficial.
+
+
+## Casa de Francisca
+
+O script foi preparado para normalizar os eventos da Casa de Francisca a partir da página oficial na Sympla:
+
+- Base oficial: `https://site.bileto.sympla.com.br/casadefrancisca/`
+- Eventos da Francisca passam por normalização automática de URL.
+- Links antigos de `bileto.sympla.com.br/event/...` e de programação genérica são substituídos pela base oficial da casa.
+
+Se você quiser a etapa seguinte, dá para evoluir esse normalizador para um scraper que descubra e consulte cada evento individualmente a partir da página oficial.
