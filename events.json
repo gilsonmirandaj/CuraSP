@@ -1,5 +1,5 @@
 {
-  "updated": "2026-04-08T01:15:51Z",
+  "updated": "2026-04-13T10:00:24Z",
   "events": [
     {
       "name": "No Hope Fest",
@@ -74,35 +74,11 @@
       "url": "https://www.sescsp.org.br/programacao/"
     },
     {
-      "name": "Vivendo do Ocio",
-      "detail": "+ Murilo Muraah + DJ Breno Oliveira",
-      "date": "Qui 09/4",
-      "time": "20h",
-      "iso": "2026-04-09",
-      "venue": "Picles Cardeal",
-      "v": "picles",
-      "genre": "Indie Rock",
-      "price": "R$40",
-      "url": "https://shotgun.live/en/venues/picles"
-    },
-    {
       "name": "Negritude Jr.",
       "detail": "Show",
       "date": "Sex 10/4",
       "time": "20h30",
       "iso": "2026-04-10",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Pagode",
-      "price": "",
-      "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Negritude Jr.",
-      "detail": "Show",
-      "date": "Sab 11/4",
-      "time": "20h30",
-      "iso": "2026-04-11",
       "venue": "SESC SP",
       "v": "sesc",
       "genre": "Pagode",
@@ -120,6 +96,18 @@
       "genre": "Hip-hop",
       "price": "",
       "url": "https://www.songkick.com/concerts/43045390"
+    },
+    {
+      "name": "Negritude Jr.",
+      "detail": "Show",
+      "date": "Sab 11/4",
+      "time": "20h30",
+      "iso": "2026-04-11",
+      "venue": "SESC SP",
+      "v": "sesc",
+      "genre": "Pagode",
+      "price": "",
+      "url": "https://www.sescsp.org.br/programacao/"
     },
     {
       "name": "Mirim e Victor Xama",
@@ -206,18 +194,6 @@
       "url": "https://www.sescsp.org.br/programacao/"
     },
     {
-      "name": "Show part. Djonga",
-      "detail": "Show autoral",
-      "date": "Qui 23/4",
-      "time": "21h",
-      "iso": "2026-04-23",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Hip-hop",
-      "price": "",
-      "url": "https://www.sescsp.org.br/?s=Djonga"
-    },
-    {
       "name": "Ze Ibarra",
       "detail": "",
       "date": "Qui 23/4",
@@ -231,10 +207,10 @@
     },
     {
       "name": "Show part. Djonga",
-      "detail": "",
-      "date": "Sex 24/4",
+      "detail": "Show autoral",
+      "date": "Qui 23/4",
       "time": "21h",
-      "iso": "2026-04-24",
+      "iso": "2026-04-23",
       "venue": "SESC SP",
       "v": "sesc",
       "genre": "Hip-hop",
@@ -264,6 +240,18 @@
       "genre": "Indie Rock",
       "price": "",
       "url": "https://shotgun.live/en/events/maglorenocinejoia"
+    },
+    {
+      "name": "Show part. Djonga",
+      "detail": "",
+      "date": "Sex 24/4",
+      "time": "21h",
+      "iso": "2026-04-24",
+      "venue": "SESC SP",
+      "v": "sesc",
+      "genre": "Hip-hop",
+      "price": "",
+      "url": "https://www.sescsp.org.br/?s=Djonga"
     },
     {
       "name": "Catto",
