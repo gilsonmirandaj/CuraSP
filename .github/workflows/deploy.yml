@@ -1,0 +1,32 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main  # Monitorar a branch 'main'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout do repositório
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      # Step 2: Configurar ambiente (Python, Node.js, etc. conforme necessário)
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      # Step 3: Instalar dependências (personalize conforme seu projeto)
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      # Step 4: Deploy (personalize este comando para o seu caso)
+      - name: Deploy Application
+        run: |
+          # Exemplo: Enviar arquivos para servidor ou serviços como Heroku, AWS, etc.
+          echo "Run deploy script here"

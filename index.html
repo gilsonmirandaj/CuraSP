@@ -1,362 +1,464 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shows SP 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:       #111213;
-  --surface:  #1a1b1d;
-  --border:   #26282b;
-  --border2:  #2f3235;
-  --text:     #e8e9ea;
-  --muted:    #6b6f74;
-  --faint:    #3a3d42;
-  --sesc:       #d4a843;
-  --cine:       #e05252;
-  --balaclava:  #5b8fe8;
-  --francisca:  #e07d3c;
-  --maldita:    #c45b9a;
-  --porta:      #8a72e0;
-  --picles:     #3ea87a;
-  --rockambole: #d45ba0;
-  --bona:       #b8a040;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body {
-  background: var(--bg); color: var(--text);
-  font-family: 'Space Grotesk', sans-serif; font-weight: 400;
-  max-width: 700px; margin: 0 auto; padding: 40px 20px 80px;
-  -webkit-font-smoothing: antialiased;
-}
-.header { margin-bottom: 32px; }
-.header-eyebrow {
-  font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px;
-}
-.header-title { font-size: 34px; font-weight: 600; color: var(--text); line-height: 1.1; letter-spacing: -0.02em; }
-.header-title span { color: var(--muted); font-weight: 300; }
-.updated { font-family: 'Space Mono', monospace; font-size: 9px; color: var(--faint); margin-top: 6px; letter-spacing: 0.08em; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CuraSP — Shows em São Paulo</title>
+  <style>
+    :root {
+      --bg: #0e0e0e;
+      --surface: #181818;
+      --card: #222;
+      --accent: #f0a500;
+      --accent2: #e05a00;
+      --text: #e8e8e8;
+      --muted: #777;
+      --border: #2e2e2e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      line-height: 1.4;
+    }
 
-.section-label {
-  font-family: 'Space Mono', monospace; font-size: 10px;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); margin-bottom: 8px;
-}
-.venue-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 24px; }
-.vbtn {
-  display: flex; align-items: center; gap: 7px; padding: 6px 12px 6px 8px;
-  border-radius: 5px; border: 1.5px solid var(--border2); background: var(--surface);
-  color: var(--muted); font-family: 'Space Grotesk', sans-serif; font-size: 12px;
-  font-weight: 500; cursor: pointer; transition: all 0.15s ease; white-space: nowrap;
-}
-.vbtn:hover { border-color: var(--faint); color: var(--text); }
-.vswatch { width: 8px; height: 8px; border-radius: 2px; background: var(--faint); flex-shrink: 0; transition: background 0.15s; }
-.vbtn.on { color: var(--text); }
-.vbtn[data-v="sesc"].on       { border-color: var(--sesc);       background: color-mix(in srgb, var(--sesc) 9%, var(--surface)); }
-.vbtn[data-v="sesc"].on .vswatch       { background: var(--sesc); }
-.vbtn[data-v="cine"].on       { border-color: var(--cine);       background: color-mix(in srgb, var(--cine) 9%, var(--surface)); }
-.vbtn[data-v="cine"].on .vswatch       { background: var(--cine); }
-.vbtn[data-v="balaclava"].on  { border-color: var(--balaclava);  background: color-mix(in srgb, var(--balaclava) 9%, var(--surface)); }
-.vbtn[data-v="balaclava"].on .vswatch  { background: var(--balaclava); }
-.vbtn[data-v="francisca"].on  { border-color: var(--francisca);  background: color-mix(in srgb, var(--francisca) 9%, var(--surface)); }
-.vbtn[data-v="francisca"].on .vswatch  { background: var(--francisca); }
-.vbtn[data-v="maldita"].on    { border-color: var(--maldita);    background: color-mix(in srgb, var(--maldita) 9%, var(--surface)); }
-.vbtn[data-v="maldita"].on .vswatch    { background: var(--maldita); }
-.vbtn[data-v="porta"].on      { border-color: var(--porta);      background: color-mix(in srgb, var(--porta) 9%, var(--surface)); }
-.vbtn[data-v="porta"].on .vswatch      { background: var(--porta); }
-.vbtn[data-v="picles"].on     { border-color: var(--picles);     background: color-mix(in srgb, var(--picles) 9%, var(--surface)); }
-.vbtn[data-v="picles"].on .vswatch     { background: var(--picles); }
-.vbtn[data-v="rockambole"].on { border-color: var(--rockambole); background: color-mix(in srgb, var(--rockambole) 9%, var(--surface)); }
-.vbtn[data-v="rockambole"].on .vswatch { background: var(--rockambole); }
-.vbtn[data-v="bona"].on       { border-color: var(--bona);       background: color-mix(in srgb, var(--bona) 9%, var(--surface)); }
-.vbtn[data-v="bona"].on .vswatch       { background: var(--bona); }
+    /* ── Header ── */
+    header {
+      padding: 1.75rem 1rem 1.25rem;
+      background: linear-gradient(135deg, #12122a 0%, #1a1a1a 100%);
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    header p { color: var(--muted); font-size: 0.82rem; margin-top: 0.3rem; letter-spacing: 0.5px; }
 
-.filter-bar {
-  display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
-  padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
-  border-radius: 8px; margin-bottom: 12px;
-}
-.filter-group { display: flex; align-items: center; gap: 7px; }
-.filter-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--faint); white-space: nowrap; }
-.date-input {
-  background: var(--bg); border: 1px solid var(--border2); color: var(--muted);
-  padding: 5px 9px; border-radius: 4px; font-family: 'Space Grotesk', sans-serif;
-  font-size: 12px; outline: none; cursor: pointer; transition: all 0.15s; color-scheme: dark;
-}
-.date-input:hover  { border-color: var(--faint); }
-.date-input:focus  { border-color: var(--muted); color: var(--text); }
-.date-input.active { border-color: var(--muted); color: var(--text); }
-.filter-sep { color: var(--faint); font-size: 14px; }
-.clear-btn {
-  margin-left: auto; background: none; border: 1px solid var(--border2);
-  color: var(--faint); padding: 4px 10px; border-radius: 4px;
-  font-family: 'Space Grotesk', sans-serif; font-size: 11px;
-  cursor: pointer; transition: all 0.15s; display: none;
-}
-.clear-btn.show { display: inline-block; }
-.clear-btn:hover { border-color: var(--muted); color: var(--text); }
+    /* ── Filters ── */
+    .filters {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0.6rem 1rem;
+    }
+    .filter-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.4rem;
+    }
+    .filter-row:last-child { margin-bottom: 0; }
+    .filter-label {
+      font-size: 0.68rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      min-width: 4rem;
+    }
 
-.genre-row { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 20px; }
-.chip {
-  padding: 4px 11px; border-radius: 100px; border: 1px solid var(--border);
-  background: none; color: var(--faint); font-family: 'Space Grotesk', sans-serif;
-  font-size: 11px; font-weight: 500; cursor: pointer; transition: all 0.12s;
-}
-.chip:hover { border-color: var(--border2); color: var(--muted); }
-.chip.on { background: var(--text); border-color: var(--text); color: var(--bg); }
+    .chip {
+      padding: 0.28rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+      font-family: inherit;
+    }
+    .chip:hover { border-color: var(--accent); color: var(--text); }
+    .chip.active { background: var(--accent); border-color: var(--accent); color: #111; font-weight: 700; }
 
-.count-bar { display: flex; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
-.count { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--faint); }
+    /* ── Main layout ── */
+    main {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+    }
 
-.event {
-  display: grid; grid-template-columns: 68px 1fr auto; gap: 0 16px;
-  padding: 14px 0 14px 14px; border-bottom: 1px solid var(--border);
-  text-decoration: none; color: inherit; align-items: start;
-  opacity: 0; animation: fi 0.18s ease forwards; position: relative; transition: background 0.1s;
-}
-.event::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; border-radius: 0 2px 2px 0; }
-.event:hover { background: rgba(255,255,255,0.02); }
-@keyframes fi { to { opacity: 1; } }
-.event[data-v="sesc"]::before       { background: var(--sesc); }
-.event[data-v="cine"]::before       { background: var(--cine); }
-.event[data-v="balaclava"]::before  { background: var(--balaclava); }
-.event[data-v="francisca"]::before  { background: var(--francisca); }
-.event[data-v="maldita"]::before    { background: var(--maldita); }
-.event[data-v="porta"]::before      { background: var(--porta); }
-.event[data-v="picles"]::before     { background: var(--picles); }
-.event[data-v="rockambole"]::before { background: var(--rockambole); }
-.event[data-v="bona"]::before       { background: var(--bona); }
+    /* ── Date groups ── */
+    .date-group { margin-bottom: 2rem; }
+    .date-header {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.4rem 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0.7rem;
+    }
+    .date-header.today    { color: #4caf50; }
+    .date-header.tomorrow { color: var(--accent2); }
 
-.when-day { font-family: 'Space Mono', monospace; font-size: 11px; font-weight: 700; color: var(--text); letter-spacing: 0.02em; line-height: 1.3; padding-top: 2px; }
-.when-time { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 3px; }
-.who { font-size: 15px; font-weight: 500; color: var(--text); line-height: 1.3; margin-bottom: 3px; letter-spacing: -0.01em; }
-.event:hover .who { color: #fff; }
-.where { font-size: 12px; color: var(--muted); line-height: 1.5; }
-.price-tag { display: inline; font-size: 11px; color: var(--faint); margin-left: 6px; }
-.detail { font-size: 11px; color: var(--faint); margin-top: 2px; line-height: 1.4; }
+    /* ── Event card ── */
+    .card {
+      display: flex;
+      gap: 0.9rem;
+      align-items: flex-start;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .card:hover { border-color: var(--accent); transform: translateX(3px); }
+    .card.past { opacity: 0.4; }
 
-.vtag { font-family: 'Space Mono', monospace; font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; padding: 3px 7px; border-radius: 3px; white-space: nowrap; margin-top: 2px; display: inline-block; }
-.t-sesc       { color: var(--sesc);       background: color-mix(in srgb, var(--sesc) 14%, var(--bg)); }
-.t-cine       { color: var(--cine);       background: color-mix(in srgb, var(--cine) 14%, var(--bg)); }
-.t-balaclava  { color: var(--balaclava);  background: color-mix(in srgb, var(--balaclava) 14%, var(--bg)); }
-.t-francisca  { color: var(--francisca);  background: color-mix(in srgb, var(--francisca) 14%, var(--bg)); }
-.t-maldita    { color: var(--maldita);    background: color-mix(in srgb, var(--maldita) 14%, var(--bg)); }
-.t-porta      { color: var(--porta);      background: color-mix(in srgb, var(--porta) 14%, var(--bg)); }
-.t-picles     { color: var(--picles);     background: color-mix(in srgb, var(--picles) 14%, var(--bg)); }
-.t-rockambole { color: var(--rockambole); background: color-mix(in srgb, var(--rockambole) 14%, var(--bg)); }
-.t-bona       { color: var(--bona);       background: color-mix(in srgb, var(--bona) 14%, var(--bg)); }
+    .card-time {
+      min-width: 3.2rem;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .card-time .t-time {
+      display: block;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .card-time .t-date {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
 
-.empty { text-align: center; padding: 60px 0; color: var(--faint); font-size: 13px; line-height: 2; }
-.error { text-align: center; padding: 40px 0; color: #e05252; font-size: 12px; font-family: 'Space Mono', monospace; }
+    .card-body { flex: 1; min-width: 0; }
+    .card-name {
+      font-size: 0.97rem;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 0.2rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-detail {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .card-meta { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; margin-top: 0.4rem; }
 
-.footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; flex-wrap: wrap; gap: 6px 16px; }
-.footer a { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--faint); text-decoration: none; transition: color 0.15s; }
-.footer a:hover { color: var(--muted); }
-</style>
+    .badge {
+      font-size: 0.65rem;
+      font-weight: 600;
+      padding: 0.12rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .b-venue { background: #1e1e3a; color: #9b9bdd; border: 1px solid #2a2a5a; }
+    .b-genre { background: #1a2e1a; color: #7fb87f; border: 1px solid #2a4a2a; }
+    .b-price { background: #2e1e0a; color: #ffb06a; border: 1px solid #5a3a1a; }
+    .b-free  { background: #0a2e1a; color: #6adc9b; border: 1px solid #1a5a3a; }
+
+    .buy-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-size: 0.72rem;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--accent);
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      transition: all 0.15s;
+    }
+    .buy-link:hover { background: var(--accent); color: #111; }
+
+    /* ── States ── */
+    .state-msg {
+      text-align: center;
+      color: var(--muted);
+      padding: 4rem 1rem;
+      font-size: 1rem;
+    }
+    .state-msg small { display: block; font-size: 0.78rem; margin-top: 0.4rem; }
+
+    .updated-bar {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.7rem;
+      padding: 0.75rem 1rem 1.5rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.6rem; letter-spacing: 2px; }
+    }
+  </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-eyebrow">SP · 2026</div>
-  <div class="header-title">Shows <span>em São Paulo</span></div>
-  <div class="updated" id="updated"></div>
+<header>
+  <h1>CURASP</h1>
+  <p>Shows e eventos em São Paulo</p>
+</header>
+
+<div class="filters">
+  <div class="filter-row">
+    <span class="filter-label">Quando</span>
+    <button class="chip active" data-period="upcoming" onclick="setPeriod(this)">Próximos</button>
+    <button class="chip" data-period="today"    onclick="setPeriod(this)">Hoje</button>
+    <button class="chip" data-period="week"     onclick="setPeriod(this)">Esta semana</button>
+    <button class="chip" data-period="all"      onclick="setPeriod(this)">Todos</button>
+  </div>
+  <div class="filter-row" id="row-venues">
+    <span class="filter-label">Casa</span>
+  </div>
+  <div class="filter-row" id="row-genres">
+    <span class="filter-label">Gênero</span>
+  </div>
 </div>
 
-<div class="section-label">Casas</div>
-<div class="venue-row" id="venue-row"></div>
+<main>
+  <div id="state" class="state-msg">Carregando eventos…</div>
+  <div id="events" style="display:none"></div>
+</main>
 
-<div class="filter-bar">
-  <div class="filter-group">
-    <span class="filter-label">De</span>
-    <input type="date" id="date-from" class="date-input" onchange="onDateChange()" />
-  </div>
-  <span class="filter-sep">—</span>
-  <div class="filter-group">
-    <span class="filter-label">Até</span>
-    <input type="date" id="date-to" class="date-input" onchange="onDateChange()" />
-  </div>
-  <button id="date-clear" class="clear-btn" onclick="clearDate()">Limpar</button>
-</div>
-
-<div class="genre-row" id="chips"></div>
-<div class="count-bar"><span class="count" id="count"></span></div>
-<div id="list"></div>
-<div class="footer" id="footer"></div>
+<div id="updated-bar" class="updated-bar"></div>
 
 <script>
-var VENUES = [
-  {id:"sesc",       label:"SESC",       tag:"t-sesc"},
-  {id:"cine",       label:"Cine Joia",  tag:"t-cine"},
-  {id:"balaclava",  label:"Balaclava",  tag:"t-balaclava"},
-  {id:"francisca",  label:"Francisca",  tag:"t-francisca"},
-  {id:"maldita",    label:"Maldita",    tag:"t-maldita"},
-  {id:"porta",      label:"Porta",      tag:"t-porta"},
-  {id:"picles",     label:"Picles",     tag:"t-picles"},
-  {id:"rockambole", label:"Rockambole", tag:"t-rockambole"},
-  {id:"bona",       label:"Bona",       tag:"t-bona"}
-];
-var VM = {};
-VENUES.forEach(function(v) { VM[v.id] = v; });
-var activeVenues = {};
-VENUES.forEach(function(v) { activeVenues[v.id] = true; });
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 
-VENUES.forEach(function(v) {
-  var b = document.createElement("button");
-  b.className = "vbtn on"; b.setAttribute("data-v", v.id);
-  b.innerHTML = "<span class='vswatch'></span>" + v.label;
-  b.onclick = function() { toggleVenue(b); };
-  document.getElementById("venue-row").appendChild(b);
-});
+  const MONTHS_PT = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const DAYS_PT   = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
 
-var LINKS = [
-  {l:"SESC",       u:"https://www.sescsp.org.br/programacao/"},
-  {l:"Cine Joia",  u:"https://www.cinejoia.com.br/agenda/"},
-  {l:"Balaclava",  u:"https://www.instagram.com/balaclavarecords/"},
-  {l:"Francisca",  u:"https://casadefrancisca.art.br/novo/programacao"},
-  {l:"Maldita",    u:"https://www.sympla.com.br/evento/a-porta-maldita-anomalia/2859672"},
-  {l:"Porta",      u:"https://shotgun.live/en/venues/p-o-r-t-a"},
-  {l:"Picles",     u:"https://shotgun.live/en/venues/picles"},
-  {l:"Rockambole", u:"https://meaple.com.br/rockambole"},
-  {l:"Bona",       u:"https://www.bona.art.br/event-list"}
-];
-LINKS.forEach(function(x) {
-  var a = document.createElement("a");
-  a.href = x.u; a.target = "_blank"; a.textContent = x.l;
-  document.getElementById("footer").appendChild(a);
-});
+  function isoToLocalDate(iso) {
+    if (!iso) return null;
+    const [y, m, d] = iso.split('-').map(Number);
+    return new Date(y, m - 1, d);
+  }
 
-var GENRES = ["MPB","Samba","Rock","Indie","Hip-hop","Forro","Reggae","Jazz","Afrobeat","Eletronica","Punk","Choro","Grime","Folk","Classical","Post-punk","Experimental"];
-var activeGenres = [];
-GENRES.forEach(function(g) {
-  var b = document.createElement("button");
-  b.className = "chip"; b.textContent = g;
-  b.onclick = function() {
-    b.classList.toggle("on");
-    var i = activeGenres.indexOf(g);
-    if (i >= 0) activeGenres.splice(i,1); else activeGenres.push(g);
+  function todayISO() {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function addDaysToISO(iso, n) {
+    const d = isoToLocalDate(iso);
+    d.setDate(d.getDate() + n);
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+  }
+
+  function fmtHeader(iso) {
+    const d = isoToLocalDate(iso);
+    if (!d) return 'A confirmar';
+    return `${DAYS_PT[d.getDay()]}, ${d.getDate()} de ${MONTHS_PT[d.getMonth()]}`;
+  }
+
+  /* ─── State ─── */
+  let allEvents   = [];
+  let period      = 'upcoming';
+  let activeVenue = null;
+  let activeGenre = null;
+
+  const TODAY    = todayISO();
+  const WEEK_END = addDaysToISO(TODAY, 7);
+  const TOMORROW = addDaysToISO(TODAY, 1);
+
+  /* ─── Filter controls ─── */
+  function setPeriod(btn) {
+    document.querySelectorAll('[data-period]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    period = btn.dataset.period;
     render();
-  };
-  document.getElementById("chips").appendChild(b);
-});
-
-var EVENTS = [];
-var dateFrom = null, dateTo = null;
-
-// Load events.json (generated by GitHub Actions weekly)
-(function() {
-  var sources = ["data/events.json", "events.json"];
-
-  function tryLoad(i) {
-    fetch(sources[i])
-      .then(function(r) {
-        if (!r.ok) throw new Error("HTTP " + r.status + " em " + sources[i]);
-        return r.json();
-      })
-      .then(function(data) {
-        EVENTS = data.events || [];
-        var updated = data.updated ? new Date(data.updated) : null;
-        if (updated) {
-          document.getElementById("updated").textContent =
-            "atualizado " + updated.toLocaleDateString("pt-BR", {day:"2-digit", month:"short", year:"numeric"});
-        }
-        render();
-      })
-      .catch(function() {
-        if (i + 1 < sources.length) return tryLoad(i + 1);
-        document.getElementById("list").innerHTML = "<div class='error'>Erro ao carregar events.json</div>";
-      });
   }
 
-  tryLoad(0);
-})();
-
-function toggleVenue(btn) {
-  var v = btn.getAttribute("data-v"), on = btn.classList.contains("on");
-  if (on && VENUES.filter(function(x){return x.id!==v&&activeVenues[x.id];}).length===0) return;
-  activeVenues[v] = !on; btn.classList.toggle("on"); render();
-}
-
-function onDateChange() {
-  dateFrom = document.getElementById("date-from").value || null;
-  dateTo   = document.getElementById("date-to").value   || null;
-  if (dateFrom && dateTo && dateTo < dateFrom) { dateTo = dateFrom; document.getElementById("date-to").value = dateTo; }
-  var has = dateFrom || dateTo;
-  document.getElementById("date-clear").className = has ? "clear-btn show" : "clear-btn";
-  document.getElementById("date-from").className = "date-input" + (dateFrom ? " active" : "");
-  document.getElementById("date-to").className   = "date-input" + (dateTo   ? " active" : "");
-  render();
-}
-
-function clearDate() {
-  dateFrom = dateTo = null;
-  document.getElementById("date-from").value = "";
-  document.getElementById("date-to").value   = "";
-  document.getElementById("date-clear").className = "clear-btn";
-  document.getElementById("date-from").className  = "date-input";
-  document.getElementById("date-to").className    = "date-input";
-  render();
-}
-
-function matchDate(ev) {
-  if (!dateFrom && !dateTo) return true;
-  var p = ev.iso || null;
-  if (!p) return true;
-  if (dateFrom && p < dateFrom) return false;
-  if (dateTo   && p > dateTo)   return false;
-  return true;
-}
-
-function matchGenre(ev) {
-  if (!activeGenres.length) return false;
-  return activeGenres.some(function(g){ return (ev.genre||"").toLowerCase().indexOf(g.toLowerCase()) >= 0; });
-}
-
-function dedup(items) {
-  var s = {};
-  return items.filter(function(e) {
-    var k = (e.name+"|"+(e.iso||e.date)+"|"+e.v).toLowerCase().trim();
-    if (s[k]) return false; s[k]=true; return true;
-  });
-}
-
-function render() {
-  var items = dedup(EVENTS.filter(function(e){ return activeVenues[e.v] && matchDate(e); }));
-  items.sort(function(a,b){ return (matchGenre(b)?1:0) - (matchGenre(a)?1:0); });
-
-  var genN = items.filter(matchGenre).length;
-  var ct = items.length + " eventos";
-  if (dateFrom || dateTo) {
-    var fmt = function(iso){ var d=new Date(iso+"T12:00:00"); return d.toLocaleDateString("pt-BR",{day:"numeric",month:"short"}); };
-    if (dateFrom && dateTo && dateFrom !== dateTo) ct += "  ·  " + fmt(dateFrom) + " — " + fmt(dateTo);
-    else if (dateFrom) ct += "  ·  a partir de " + fmt(dateFrom);
-    else if (dateTo)   ct += "  ·  até " + fmt(dateTo);
-  }
-  if (genN > 0) ct += "  ·  " + genN + " combinam";
-  document.getElementById("count").textContent = ct;
-
-  if (!items.length) {
-    document.getElementById("list").innerHTML = "<div class='empty'>Nenhum evento encontrado.</div>";
-    return;
+  function toggleVenue(btn, v) {
+    if (activeVenue === v) {
+      activeVenue = null;
+      btn.classList.remove('active');
+    } else {
+      document.querySelectorAll('[data-venue]').forEach(b => b.classList.remove('active'));
+      activeVenue = v;
+      btn.classList.add('active');
+    }
+    render();
   }
 
-  document.getElementById("list").innerHTML = items.map(function(ev, i) {
-    var vc = VM[ev.v] || {label:ev.v, tag:"t-sesc"};
-    return "<a class='event' data-v='" + ev.v + "' href='" + (ev.url||"#") + "' target='_blank' style='animation-delay:" + (i*8) + "ms'>" +
-      "<div>" +
-        "<div class='when-day'>" + ev.date + "</div>" +
-        (ev.time ? "<div class='when-time'>" + ev.time + "</div>" : "") +
-      "</div>" +
-      "<div>" +
-        "<div class='who'>" + ev.name + "</div>" +
-        "<div class='where'>" + ev.venue + (ev.price ? "<span class='price-tag'>" + ev.price + "</span>" : "") + "</div>" +
-        (ev.detail ? "<div class='detail'>" + ev.detail + "</div>" : "") +
-      "</div>" +
-      "<div><span class='vtag " + vc.tag + "'>" + vc.label + "</span></div>" +
-    "</a>";
-  }).join("");
-}
+  function toggleGenre(btn, g) {
+    if (activeGenre === g) {
+      activeGenre = null;
+      btn.classList.remove('active');
+    } else {
+      document.querySelectorAll('[data-genre]').forEach(b => b.classList.remove('active'));
+      activeGenre = g;
+      btn.classList.add('active');
+    }
+    render();
+  }
+
+  /* ─── Filtering ─── */
+  function applyFilters() {
+    return allEvents.filter(e => {
+      const iso = e.iso || '';
+      if (period === 'today'    && iso !== TODAY)                    return false;
+      if (period === 'week'     && (iso < TODAY || iso > WEEK_END))  return false;
+      if (period === 'upcoming' && iso < TODAY)                      return false;
+      if (activeVenue && e.v !== activeVenue)                        return false;
+      if (activeGenre) {
+        const parts = (e.genre || '').split(/[\/,]/).map(g => g.trim().toLowerCase());
+        if (!parts.some(p => p.includes(activeGenre.toLowerCase()))) return false;
+      }
+      return true;
+    });
+  }
+
+  /* ─── Render ─── */
+  function render() {
+    const filtered = applyFilters();
+    const evEl = $('events');
+    const stEl = $('state');
+
+    if (!filtered.length) {
+      evEl.style.display = 'none';
+      stEl.style.display = 'block';
+      stEl.innerHTML = 'Nenhum evento encontrado para esse filtro.<small>Tente "Todos" ou limpe os filtros de casa/gênero.</small>';
+      return;
+    }
+
+    evEl.style.display = 'block';
+    stEl.style.display = 'none';
+
+    const groups = {};
+    const noDate = [];
+    for (const e of filtered) {
+      if (!e.iso) { noDate.push(e); continue; }
+      (groups[e.iso] = groups[e.iso] || []).push(e);
+    }
+
+    let html = '';
+    for (const iso of Object.keys(groups).sort()) {
+      const isPast     = iso < TODAY;
+      const isToday    = iso === TODAY;
+      const isTomorrow = iso === TOMORROW;
+
+      let label = fmtHeader(iso);
+      let cls   = 'date-header';
+      if (isToday)    { label = `Hoje — ${label}`;   cls += ' today'; }
+      if (isTomorrow) { label = `Amanhã — ${label}`; cls += ' tomorrow'; }
+
+      html += `<div class="date-group"><div class="${cls}">${label}</div>`;
+      for (const e of groups[iso]) html += cardHTML(e, isPast);
+      html += `</div>`;
+    }
+
+    if (noDate.length) {
+      html += `<div class="date-group"><div class="date-header">A confirmar</div>`;
+      for (const e of noDate) html += cardHTML(e, false);
+      html += `</div>`;
+    }
+
+    evEl.innerHTML = html;
+  }
+
+  function cardHTML(e, isPast) {
+    const priceHTML = e.price
+      ? (e.price.toLowerCase().includes('grat')
+          ? `<span class="badge b-free">${esc(e.price)}</span>`
+          : `<span class="badge b-price">${esc(e.price)}</span>`)
+      : '';
+
+    const linkHTML = e.url
+      ? `<a class="buy-link" href="${esc(e.url)}" target="_blank" rel="noopener noreferrer">Ingressos →</a>`
+      : '';
+
+    return `
+      <div class="card${isPast ? ' past' : ''}">
+        <div class="card-time">
+          <span class="t-time">${esc(e.time || '—')}</span>
+          <span class="t-date">${esc(e.date || '')}</span>
+        </div>
+        <div class="card-body">
+          <div class="card-name" title="${esc(e.name)}">${esc(e.name || '')}</div>
+          ${e.detail ? `<div class="card-detail" title="${esc(e.detail)}">${esc(e.detail)}</div>` : ''}
+          <div class="card-meta">
+            ${e.venue ? `<span class="badge b-venue">${esc(e.venue)}</span>` : ''}
+            ${e.genre ? `<span class="badge b-genre">${esc(e.genre)}</span>` : ''}
+            ${priceHTML}
+          </div>
+          ${linkHTML}
+        </div>
+      </div>`;
+  }
+
+  /* ─── Build filter chips ─── */
+  function buildFilters(events) {
+    const venues = {};
+    for (const e of events) {
+      if (e.v && e.venue && !venues[e.v]) venues[e.v] = e.venue;
+    }
+
+    const vRow = $('row-venues');
+    const vLabel = vRow.querySelector('.filter-label');
+    vRow.innerHTML = '';
+    vRow.appendChild(vLabel);
+    for (const [v, name] of Object.entries(venues)) {
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.dataset.venue = v;
+      btn.textContent = name;
+      btn.onclick = () => toggleVenue(btn, v);
+      vRow.appendChild(btn);
+    }
+
+    const genreSet = new Set();
+    for (const e of events) {
+      (e.genre || '').split(/[\/,]/).forEach(g => { const t = g.trim(); if (t) genreSet.add(t); });
+    }
+
+    const gRow = $('row-genres');
+    const gLabel = gRow.querySelector('.filter-label');
+    gRow.innerHTML = '';
+    gRow.appendChild(gLabel);
+    for (const g of [...genreSet].sort()) {
+      const btn = document.createElement('button');
+      btn.className = 'chip';
+      btn.dataset.genre = g;
+      btn.textContent = g;
+      btn.onclick = () => toggleGenre(btn, g);
+      gRow.appendChild(btn);
+    }
+  }
+
+  /* ─── Bootstrap ─── */
+  fetch('events.json')
+    .then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); })
+    .then(data => {
+      allEvents = (Array.isArray(data) ? data : (data.events || [])).filter(e => e && e.name);
+
+      if (data.updated) {
+        const d = new Date(data.updated);
+        $('updated-bar').textContent =
+          `Atualizado em ${d.toLocaleDateString('pt-BR')} às ${d.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}`;
+      }
+
+      $('state').style.display = 'none';
+      buildFilters(allEvents);
+      render();
+    })
+    .catch(err => {
+      $('state').innerHTML = `Erro ao carregar eventos.<small>${esc(err.message)}</small>`;
+    });
 </script>
+
 </body>
 </html>
