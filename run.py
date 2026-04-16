@@ -1,5 +1,8 @@
 from scrapers.picles_shotgun import get_picles_events
 from scrapers.casa_francisca import get_casa_francisca_events
+from scrapers.casa_rockambole import get_casa_rockambole_events
+from scrapers.balaclava import get_balaclava_events
+from scrapers.bona import get_bona_events
 import json
 from datetime import datetime, timezone
 
@@ -418,6 +421,18 @@ def run():
         events += get_casa_francisca_events()
     except Exception as ex:
         print(f'Falha ao coletar Casa de Francisca: {ex}')
+    try:
+        events += get_casa_rockambole_events()
+    except Exception as ex:
+        print(f'Falha ao coletar Casa Rockambole: {ex}')
+    try:
+        events += get_balaclava_events()
+    except Exception as ex:
+        print(f'Falha ao coletar Balaclava: {ex}')
+    try:
+        events += get_bona_events()
+    except Exception as ex:
+        print(f'Falha ao coletar Bona Casa de Música: {ex}')
 
     events = dedupe(events)
     events.sort(key=sort_key)
