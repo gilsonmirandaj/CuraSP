@@ -1,14 +1,21 @@
 import json
+import re
+import requests
 import urllib.request
 import urllib.error
+from bs4 import BeautifulSoup
 from datetime import datetime
-import re
 
 DAYS_PT = ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]
-
 VENUE_URL = 'https://shotgun.live/venues/picles'
 
-# Endpoints conhecidos — tentados em ordem até um funcionar
+# Página HTML do venue no Shotgun (Next.js embute os dados no __NEXT_DATA__)
+PAGE_URLS = [
+    'https://shotgun.live/venues/picles',
+    'https://shotgun.live/pt-br/venues/picles',
+]
+
+# APIs REST — tentadas como fallback se a página falhar
 API_URLS = [
     'https://shotgun.live/api/organizations/picles/events?language=pt-br',
     'https://shotgun.live/api/v1/organizations/picles/events',
@@ -20,7 +27,7 @@ _HEADERS = {
         'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
         '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
     ),
-    'Accept': 'application/json',
+    'Accept': 'text/html,application/json',
 }
 
 
@@ -38,7 +45,6 @@ def infer_genre(name: str) -> str:
 
 
 def _parse_start(e: dict) -> str:
-    """Tenta múltiplos nomes de campo para a data de início do evento."""
     for field in ('startDate', 'start_date', 'start_at', 'starts_at', 'startsAt', 'date'):
         val = e.get(field)
         if val:
@@ -46,52 +52,27 @@ def _parse_start(e: dict) -> str:
     return ''
 
 
-def _fetch_json(url: str):
-    req = urllib.request.Request(url, headers=_HEADERS)
-    with urllib.request.urlopen(req, timeout=20) as r:
-        return json.loads(r.read().decode('utf-8'))
-
-
-def _extract_event_list(payload) -> list:
-    """Aceita tanto lista direta quanto dict com chave 'events', 'data', etc."""
-    if isinstance(payload, list):
-        return payload
-    if isinstance(payload, dict):
-        for key in ('events', 'data', 'items', 'results'):
-            if isinstance(payload.get(key), list):
-                return payload[key]
+def _find_events(obj, depth=0) -> list:
+    """Busca recursiva por lista de objetos de evento no JSON do __NEXT_DATA__."""
+    if depth > 6:
+        return []
+    if isinstance(obj, list) and len(obj) > 0:
+        first = obj[0]
+        if isinstance(first, dict) and any(k in first for k in ('name', 'title', 'startDate', 'start_at', 'slug')):
+            return obj
+    if isinstance(obj, dict):
+        for v in obj.values():
+            result = _find_events(v, depth + 1)
+            if result:
+                return result
     return []
 
 
-def get_picles_events():
-    payload = None
-    last_err = None
-
-    for url in API_URLS:
-        try:
-            payload = _fetch_json(url)
-            break
-        except urllib.error.HTTPError as ex:
-            last_err = ex
-            if ex.code in (401, 403, 404):
-                # Endpoint não existe ou requer autenticação — próximo
-                continue
-            raise
-        except Exception as ex:
-            last_err = ex
-            continue
-
-    if payload is None:
-        print(f'[picles] Todos os endpoints falharam. Último erro: {last_err}')
-        return []
-
-    raw = _extract_event_list(payload)
-    if not raw:
-        print('[picles] API retornou lista vazia ou formato desconhecido.')
-        return []
-
+def _parse_raw_events(raw: list) -> list:
     out = []
     for e in raw:
+        if not isinstance(e, dict):
+            continue
         start = _parse_start(e)
         if not start:
             continue
@@ -105,13 +86,9 @@ def get_picles_events():
             continue
 
         slug = e.get('slug', '')
-        detail = (e.get('description') or e.get('detail') or '')
-        if detail:
-            detail = re.sub(r'\s+', ' ', detail).strip()[:120]
-
         out.append({
             'name': name,
-            'detail': detail,
+            'detail': '',
             'date': f"{DAYS_PT[(dt.weekday() + 1) % 7]} {dt.day:02d}/{dt.month:02d}",
             'time': f"{dt.hour:02d}h{dt.minute:02d}" if dt.minute else f"{dt.hour:02d}h",
             'iso': dt.strftime('%Y-%m-%d'),
@@ -121,5 +98,49 @@ def get_picles_events():
             'price': '',
             'url': f"https://shotgun.live/events/{slug}" if slug else VENUE_URL,
         })
-
     return out
+
+
+def _scrape_next_data() -> list:
+    """Extrai eventos do JSON __NEXT_DATA__ embutido pela página Next.js do Shotgun."""
+    for url in PAGE_URLS:
+        try:
+            res = requests.get(url, headers=_HEADERS, timeout=20)
+            res.raise_for_status()
+            soup = BeautifulSoup(res.text, 'html.parser')
+            tag = soup.find('script', id='__NEXT_DATA__')
+            if not tag or not tag.string:
+                continue
+            data = json.loads(tag.string)
+            raw = _find_events(data)
+            if raw:
+                return _parse_raw_events(raw)
+        except Exception:
+            continue
+    return []
+
+
+def _scrape_api() -> list:
+    """Fallback: tenta endpoints REST da API do Shotgun."""
+    for url in API_URLS:
+        try:
+            req = urllib.request.Request(url, headers=_HEADERS)
+            with urllib.request.urlopen(req, timeout=20) as r:
+                payload = json.loads(r.read().decode('utf-8'))
+            raw = payload if isinstance(payload, list) else payload.get('events', [])
+            if raw:
+                return _parse_raw_events(raw)
+        except Exception:
+            continue
+    return []
+
+
+def get_picles_events():
+    events = _scrape_next_data()
+    if events:
+        return events
+    events = _scrape_api()
+    if events:
+        return events
+    print('[picles] Não foi possível coletar eventos.')
+    return []
