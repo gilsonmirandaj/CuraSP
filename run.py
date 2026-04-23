@@ -220,6 +220,60 @@ def dedupe(events: list) -> list:
     return out
 
 
+PLACEHOLDER_VENUES = {
+    'balaclava': {
+        "name": "Programação – Audio SP",
+        "detail": "Shows de rock, indie e eletrônica",
+        "iso": "",
+        "venue": "Audio SP",
+        "v": "balaclava",
+        "genre": "Indie Rock",
+        "price": "",
+        "url": "https://shotgun.live/organizations/balaclava",
+    },
+    'rockambole': {
+        "name": "Programação – Casa Rockambole",
+        "detail": "Shows experimentais, noise e rock alternativo",
+        "iso": "",
+        "venue": "Casa Rockambole",
+        "v": "rockambole",
+        "genre": "Experimental / Rock / Noise",
+        "price": "",
+        "url": "https://meaple.com.br/rockambole",
+    },
+    'bona': {
+        "name": "Programação – Bona Casa de Música",
+        "detail": "MPB, Jazz e música ao vivo",
+        "iso": "",
+        "venue": "Bona Casa de Música",
+        "v": "bona",
+        "genre": "MPB / Folk / Jazz",
+        "price": "",
+        "url": "https://www.bonacasademusica.com.br/agenda",
+    },
+    'francisca': {
+        "name": "Programação – Casa de Francisca",
+        "detail": "MPB, jazz e música independente",
+        "iso": "",
+        "venue": "Casa de Francisca",
+        "v": "francisca",
+        "genre": "MPB / Jazz",
+        "price": "",
+        "url": "https://site.bileto.sympla.com.br/casadefrancisca/",
+    },
+    'picles': {
+        "name": "Programação – Picles",
+        "detail": "Shows de indie rock e alternativo",
+        "iso": "",
+        "venue": "Picles",
+        "v": "picles",
+        "genre": "Indie Rock",
+        "price": "",
+        "url": "https://shotgun.live/venues/picles",
+    },
+}
+
+
 def run():
     today = datetime.now(timezone.utc).strftime('%Y-%m-%d')
     print(f'[run] hoje = {today}')
@@ -233,18 +287,29 @@ def run():
     ]
 
     dynamic: list = []
+    scraped_venues: set = set()
     for name, fn in scrapers:
         try:
             results = fn()
             print(f'[run] {name}: {len(results)} evento(s)')
+            if results:
+                scraped_venues.add(name)
             dynamic.extend(results)
         except Exception as ex:
             print(f'[run] {name} erro: {ex}')
 
-    # Static events starting from today
+    # Static events from today onwards
     static_future = [e for e in STATIC_EVENTS if (e.get('iso') or '') >= today]
 
-    all_events = dedupe(sorted(static_future + dynamic, key=sort_key))
+    # For venues where the scraper returned nothing, add a placeholder so the
+    # venue button always appears in the filter bar.
+    fallbacks = [
+        {**ph, 'date': '', 'time': ''}
+        for v, ph in PLACEHOLDER_VENUES.items()
+        if v not in scraped_venues
+    ]
+
+    all_events = dedupe(sorted(static_future + dynamic + fallbacks, key=sort_key))
     print(f'[run] total após dedupe: {len(all_events)} eventos')
 
     payload = {

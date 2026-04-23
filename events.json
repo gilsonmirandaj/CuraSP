@@ -384,6 +384,66 @@
       "genre": "Post-punk",
       "price": "",
       "url": "https://ingresse.com/shame-sp"
+    },
+    {
+      "name": "Programação – Audio SP",
+      "detail": "Shows de rock, indie e eletrônica",
+      "iso": "",
+      "date": "",
+      "time": "",
+      "venue": "Audio SP",
+      "v": "balaclava",
+      "genre": "Indie Rock",
+      "price": "",
+      "url": "https://shotgun.live/organizations/balaclava"
+    },
+    {
+      "name": "Programação – Casa Rockambole",
+      "detail": "Shows experimentais, noise e rock alternativo",
+      "iso": "",
+      "date": "",
+      "time": "",
+      "venue": "Casa Rockambole",
+      "v": "rockambole",
+      "genre": "Experimental / Rock / Noise",
+      "price": "",
+      "url": "https://meaple.com.br/rockambole"
+    },
+    {
+      "name": "Programação – Bona Casa de Música",
+      "detail": "MPB, Jazz e música ao vivo",
+      "iso": "",
+      "date": "",
+      "time": "",
+      "venue": "Bona Casa de Música",
+      "v": "bona",
+      "genre": "MPB / Folk / Jazz",
+      "price": "",
+      "url": "https://www.bonacasademusica.com.br/agenda"
+    },
+    {
+      "name": "Programação – Casa de Francisca",
+      "detail": "MPB, jazz e música independente",
+      "iso": "",
+      "date": "",
+      "time": "",
+      "venue": "Casa de Francisca",
+      "v": "francisca",
+      "genre": "MPB / Jazz",
+      "price": "",
+      "url": "https://site.bileto.sympla.com.br/casadefrancisca/"
+    },
+    {
+      "name": "Programação – Picles",
+      "detail": "Shows de indie rock e alternativo",
+      "iso": "",
+      "date": "",
+      "time": "",
+      "venue": "Picles",
+      "v": "picles",
+      "genre": "Indie Rock",
+      "price": "",
+      "url": "https://shotgun.live/venues/picles"
     }
   ]
 }

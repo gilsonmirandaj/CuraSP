@@ -312,7 +312,7 @@
       const iso = e.iso || '';
       if (period === 'today'    && iso !== TODAY)                    return false;
       if (period === 'week'     && (iso < TODAY || iso > WEEK_END))  return false;
-      if (period === 'upcoming' && iso < TODAY)                      return false;
+      if (period === 'upcoming' && iso && iso < TODAY)               return false;
       if (activeVenue && e.v !== activeVenue)                        return false;
       if (activeGenre) {
         const parts = (e.genre || '').split(/[\/,]/).map(g => g.trim().toLowerCase());
@@ -402,8 +402,10 @@
 
   /* ─── Build filter chips ─── */
   function buildFilters(events) {
+    const upcoming = events.filter(e => !e.iso || e.iso >= TODAY);
+
     const venues = {};
-    for (const e of events) {
+    for (const e of upcoming) {
       if (e.v && e.venue && !venues[e.v]) venues[e.v] = e.venue;
     }
 
@@ -421,7 +423,7 @@
     }
 
     const genreSet = new Set();
-    for (const e of events) {
+    for (const e of upcoming) {
       (e.genre || '').split(/[\/,]/).forEach(g => { const t = g.trim(); if (t) genreSet.add(t); });
     }
 
