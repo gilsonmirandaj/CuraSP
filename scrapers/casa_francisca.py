@@ -102,13 +102,30 @@ def _events_from_next_data(data: dict) -> list:
     return events
 
 
+def _is_event_url(href: str) -> bool:
+    """Aceita apenas URLs que apontam para páginas de evento reais."""
+    if not href:
+        return False
+    # Sympla: páginas de evento têm /evento/ no path
+    if re.search(r'sympla\.com\.br/evento/', href):
+        return True
+    # bileto.sympla.com.br ou site.bileto.sympla.com.br com path de evento
+    if re.search(r'bileto\.sympla\.com\.br/(evt|event|e)/', href):
+        return True
+    # subdomain específico da Casa de Francisca com path filho
+    if 'casadefrancisca' in href and href.rstrip('/') != URL.rstrip('/'):
+        path = href.replace('https://', '').replace('http://', '')
+        segments = [s for s in path.split('/') if s]
+        if len(segments) >= 2:  # precisa ter pelo menos /casadefrancisca/algo
+            return True
+    return False
+
+
 def _events_from_links(soup: BeautifulSoup) -> list:
     events, seen = [], set()
     for a in soup.select('a[href]'):
         href = normalize_href(a.get('href', ''))
-        if not any(k in href for k in ('sympla.com.br', 'bileto.sympla', 'casadefrancisca')):
-            continue
-        if href.rstrip('/') in {URL.rstrip('/'), 'https://sympla.com.br', 'https://www.sympla.com.br'}:
+        if not _is_event_url(href):
             continue
         raw = ' '.join(a.get_text(' ', strip=True).split())
         if len(raw) < 4:
@@ -204,9 +221,7 @@ def _scrape_playwright():
     seen, events = set(), []
     for a in anchors:
         href = normalize_href(a.get('href', ''))
-        if not any(k in href for k in ('sympla.com.br', 'bileto.sympla', 'casadefrancisca')):
-            continue
-        if href.rstrip('/') in {URL.rstrip('/'), 'https://sympla.com.br'}:
+        if not _is_event_url(href):
             continue
         raw = ' '.join((a.get('text') or '').split())
         if len(raw) < 4:

@@ -37,15 +37,16 @@ _EXTRACT_JS = '''() => {
         'article', 'li',
     ];
     for (const sel of cardSels) {
+        const eventRe = /meaple\.com\.br\/rockambole\/.+/;
         const cards = [...document.querySelectorAll(sel)].filter(el => {
-            const link = el.querySelector('a[href*="meaple"]') || (el.tagName==='A' && el.href.includes('meaple') ? el : null);
+            const link = el.querySelector('a[href*="meaple.com.br/rockambole/"]') || (el.tagName==='A' && eventRe.test(el.href) ? el : null);
             return link && el.innerText && el.innerText.trim().length > 5;
         });
         if (cards.length === 0) continue;
         for (const card of cards) {
-            const linkEl = card.querySelector('a[href*="meaple"]') || (card.tagName==='A' ? card : null);
+            const linkEl = card.querySelector('a[href*="meaple.com.br/rockambole/"]') || (card.tagName==='A' ? card : null);
             const href = linkEl?.href || '';
-            if (!href || href.replace(/\\/+$/,'') === window.location.href.replace(/\\/+$/,'')) continue;
+            if (!href || !eventRe.test(href)) continue;
             if (seen.has(href)) continue;
             seen.add(href);
             const heading = card.querySelector('h1,h2,h3,h4,h5,[class*="title"],[class*="Title"],[class*="nome"],[class*="Name"]');
@@ -64,11 +65,12 @@ _EXTRACT_JS = '''() => {
         if (results.length) break;
     }
 
-    // Strategy 2: all meaple links if cards gave nothing
+    // Strategy 2: all rockambole event links if cards gave nothing
     if (!results.length) {
-        for (const el of document.querySelectorAll('a[href*="meaple.com.br"]')) {
+        const eventPattern = /meaple\.com\.br\/rockambole\/.+/;
+        for (const el of document.querySelectorAll('a[href*="meaple.com.br/rockambole/"]')) {
             const href = el.href;
-            if (!href || href.replace(/\\/+$/,'') === window.location.href.replace(/\\/+$/,'')) continue;
+            if (!href || !eventPattern.test(href)) continue;
             if (seen.has(href)) continue;
             seen.add(href);
             results.push({ href, name: '', date: '', time: '', price: '', text: el.innerText?.trim() || '' });
@@ -167,9 +169,8 @@ def _build_events(cards: list) -> list:
     events, seen = [], set()
     for c in cards:
         href = (c.get('href') or '').strip()
-        if not href or 'meaple.com.br' not in href:
-            continue
-        if href.rstrip('/') == URL.rstrip('/'):
+        # Only accept event subpages: meaple.com.br/rockambole/<slug>
+        if not re.match(r'https?://(?:www\.)?meaple\.com\.br/rockambole/.+', href):
             continue
 
         raw_text = c.get('text') or ''
@@ -240,7 +241,7 @@ def _try_requests() -> list:
             'time': '',
             'price': '',
         }
-        for a in soup.select('a[href*="meaple.com.br"]')
+        for a in soup.select('a[href*="meaple.com.br/rockambole/"]')
     ]
     return _build_events(anchors)
 
