@@ -10,20 +10,19 @@ DAYS_PT = ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]
 
 _HEADERS = {
     'User-Agent': (
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-        '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
     ),
-    'Accept': 'text/html,application/json',
+    'Accept': 'text/html,application/xhtml+xml',
+    'Accept-Language': 'pt-BR,pt;q=0.9',
 }
 
 
 def parse_iso(text: str) -> str:
     t = ' '.join((text or '').split()).lower()
-
     m = re.search(r'(\d{1,2})\s+de\s+([a-zç]{3,})', t)
     if m:
-        day = int(m.group(1))
-        month = MONTHS.get(m.group(2)[:3])
+        day, month = int(m.group(1)), MONTHS.get(m.group(2)[:3])
         if month:
             now = datetime.now()
             year = now.year
@@ -34,7 +33,6 @@ def parse_iso(text: str) -> str:
                 return dt.strftime('%Y-%m-%d')
             except Exception:
                 pass
-
     m2 = re.search(r'(\d{1,2})/(\d{1,2})(?:/(\d{4}))?', t)
     if m2:
         day, month = int(m2.group(1)), int(m2.group(2))
@@ -43,7 +41,6 @@ def parse_iso(text: str) -> str:
             return datetime(year, month, day).strftime('%Y-%m-%d')
         except Exception:
             pass
-
     return ''
 
 
@@ -64,74 +61,49 @@ def normalize_href(href: str) -> str:
     return href
 
 
-def _find_events(obj, depth=0) -> list:
-    """Busca recursiva por lista de eventos dentro do __NEXT_DATA__ JSON."""
+def _find_events_json(obj, depth=0) -> list:
     if depth > 6:
         return []
     if isinstance(obj, list) and len(obj) > 0:
         first = obj[0]
-        if isinstance(first, dict) and any(k in first for k in ('name', 'title', 'startDate', 'start_date', 'slug', 'id')):
+        if isinstance(first, dict) and any(k in first for k in ('name','title','startDate','start_at','slug','id')):
             return obj
     if isinstance(obj, dict):
         for v in obj.values():
-            result = _find_events(v, depth + 1)
-            if result:
-                return result
+            r = _find_events_json(v, depth + 1)
+            if r:
+                return r
     return []
 
 
-def _parse_next_data(data: dict) -> list:
-    events = []
-    seen = set()
-    raw = _find_events(data)
-    for e in raw:
+def _events_from_next_data(data: dict) -> list:
+    events, seen = [], set()
+    for e in _find_events_json(data):
         if not isinstance(e, dict):
             continue
         name = (e.get('name') or e.get('title') or '').strip()
         if not name or len(name) < 4:
             continue
-
-        # Tenta extrair URL do evento
-        href = normalize_href(e.get('url') or e.get('link') or e.get('slug') or '')
-        if e.get('slug') and not href.startswith('http'):
-            href = 'https://site.bileto.sympla.com.br/casadefrancisca/' + e.get('slug', '')
-
-        # Tenta extrair data
-        start = e.get('startDate') or e.get('start_date') or e.get('start_at') or e.get('date') or ''
+        href = normalize_href(e.get('url') or e.get('link') or '')
+        start = e.get('startDate') or e.get('start_date') or e.get('start_at') or ''
         iso = ''
         if start:
             try:
-                dt = datetime.fromisoformat(str(start).replace('Z', '+00:00')).astimezone()
+                from datetime import timezone
+                dt = datetime.fromisoformat(str(start).replace('Z', '+00:00'))
                 iso = dt.strftime('%Y-%m-%d')
             except Exception:
                 iso = parse_iso(str(start))
-        if not iso:
-            iso = parse_iso(name)
-
         key = (name.lower(), href)
         if key in seen:
             continue
         seen.add(key)
-
-        events.append({
-            'name': name[:140],
-            'detail': 'Programação oficial da Casa de Francisca',
-            'date': fmt_date(iso),
-            'time': '',
-            'iso': iso,
-            'venue': 'Casa de Francisca',
-            'v': 'francisca',
-            'genre': 'MPB / Samba / Jazz / Brasilidades',
-            'price': '',
-            'url': href or URL,
-        })
+        events.append(_make_event(name, iso, href))
     return events
 
 
-def _parse_links(soup: BeautifulSoup) -> list:
-    """Extrai eventos a partir de <a href> visíveis na página (SSR ou estático)."""
-    events = []
-    seen = set()
+def _events_from_links(soup: BeautifulSoup) -> list:
+    events, seen = [], set()
     for a in soup.select('a[href]'):
         href = normalize_href(a.get('href', ''))
         if not any(k in href for k in ('sympla.com.br', 'bileto.sympla', 'casadefrancisca')):
@@ -148,90 +120,95 @@ def _parse_links(soup: BeautifulSoup) -> list:
         if key in seen:
             continue
         seen.add(key)
-        events.append({
-            'name': name,
-            'detail': 'Programação oficial da Casa de Francisca',
-            'date': fmt_date(iso),
-            'time': '',
-            'iso': iso,
-            'venue': 'Casa de Francisca',
-            'v': 'francisca',
-            'genre': 'MPB / Samba / Jazz / Brasilidades',
-            'price': '',
-            'url': href,
-        })
+        events.append(_make_event(name, iso, href))
     return events
 
 
+def _make_event(name: str, iso: str, href: str) -> dict:
+    return {
+        'name': name[:140],
+        'detail': 'Programação oficial da Casa de Francisca',
+        'date': fmt_date(iso),
+        'time': '',
+        'iso': iso,
+        'venue': 'Casa de Francisca',
+        'v': 'francisca',
+        'genre': 'MPB / Samba / Jazz / Brasilidades',
+        'price': '',
+        'url': href or URL,
+    }
+
+
 def get_casa_francisca_events():
+    # Tentativa 1: requests (SSR ou __NEXT_DATA__)
     try:
         res = requests.get(URL, headers=_HEADERS, timeout=20)
         res.raise_for_status()
         soup = BeautifulSoup(res.text, 'html.parser')
+        print(f'[francisca] requests OK — {len(res.text)} bytes')
 
-        # Estratégia 1: __NEXT_DATA__ (Bileto usa React/Next.js)
         tag = soup.find('script', id='__NEXT_DATA__')
         if tag and tag.string:
-            data = json.loads(tag.string)
-            events = _parse_next_data(data)
+            events = _events_from_next_data(json.loads(tag.string))
             if events:
+                print(f'[francisca] {len(events)} eventos via __NEXT_DATA__')
                 return events
 
-        # Estratégia 2: links <a href> renderizados no HTML
-        events = _parse_links(soup)
+        events = _events_from_links(soup)
         if events:
+            print(f'[francisca] {len(events)} eventos via links HTML')
             return events
 
+        print('[francisca] requests OK mas nenhum evento encontrado no HTML')
     except Exception as ex:
-        print(f'[casa_francisca] requests falhou: {ex}')
+        print(f'[francisca] requests falhou: {ex}')
 
-    # Estratégia 3: Playwright (para quando rodar no GitHub Actions)
+    # Tentativa 2: Playwright com stealth
     try:
         return _scrape_playwright()
     except Exception as ex:
-        print(f'[casa_francisca] Playwright falhou: {ex}')
+        print(f'[francisca] Playwright falhou: {ex}')
         return []
 
 
 def _scrape_playwright():
     from playwright.sync_api import sync_playwright
+    from scrapers._browser import stealth_page, goto_safe
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=['--no-sandbox', '--disable-setuid-sandbox'])
-        page = browser.new_page(user_agent=_HEADERS['User-Agent'])
+        browser, ctx, page = stealth_page(p)
         try:
-            page.goto(URL, wait_until='networkidle', timeout=30000)
-        except Exception:
-            page.goto(URL, wait_until='domcontentloaded', timeout=30000)
-        page.wait_for_timeout(3000)
+            goto_safe(page, URL)
+            page.wait_for_timeout(4000)
+            print(f'[francisca] Playwright carregou — title: {page.title()!r}')
 
-        # Tenta __NEXT_DATA__ via JS
-        try:
-            next_data = page.evaluate('() => { const el = document.getElementById("__NEXT_DATA__"); return el ? el.textContent : null; }')
-            if next_data:
-                data = json.loads(next_data)
-                events = _parse_next_data(data)
-                if events:
-                    browser.close()
-                    return events
-        except Exception:
-            pass
+            # Tenta __NEXT_DATA__ via JS
+            try:
+                nd = page.evaluate('() => { const s = document.getElementById("__NEXT_DATA__"); return s ? s.textContent : null; }')
+                if nd:
+                    events = _events_from_next_data(json.loads(nd))
+                    if events:
+                        print(f'[francisca] {len(events)} eventos via __NEXT_DATA__ (Playwright)')
+                        return events
+            except Exception:
+                pass
 
-        anchors = page.eval_on_selector_all('a[href]', '''els => els.map(el => ({
-            href: el.href || "",
-            text: el.innerText || "",
-            title: el.getAttribute("title") || ""
-        }))''')
-        browser.close()
+            anchors = page.eval_on_selector_all('a[href]', '''els => els.map(el => ({
+                href: el.href || "",
+                text: el.innerText || "",
+            }))''')
+        finally:
+            ctx.close()
+            browser.close()
 
-    seen = set()
-    events = []
+    seen, events = set(), []
     for a in anchors:
         href = normalize_href(a.get('href', ''))
         if not any(k in href for k in ('sympla.com.br', 'bileto.sympla', 'casadefrancisca')):
             continue
         if href.rstrip('/') in {URL.rstrip('/'), 'https://sympla.com.br'}:
             continue
-        raw = ' '.join((a.get('text') or a.get('title') or '').split())
+        raw = ' '.join((a.get('text') or '').split())
         if len(raw) < 4:
             continue
         iso = parse_iso(raw)
@@ -241,16 +218,7 @@ def _scrape_playwright():
         if key in seen:
             continue
         seen.add(key)
-        events.append({
-            'name': name,
-            'detail': 'Programação oficial da Casa de Francisca',
-            'date': fmt_date(iso),
-            'time': '',
-            'iso': iso,
-            'venue': 'Casa de Francisca',
-            'v': 'francisca',
-            'genre': 'MPB / Samba / Jazz / Brasilidades',
-            'price': '',
-            'url': href,
-        })
+        events.append(_make_event(name, iso, href))
+
+    print(f'[francisca] {len(events)} eventos via Playwright DOM')
     return events

@@ -1,33 +1,24 @@
 import json
 import re
 import requests
-import urllib.request
-import urllib.error
 from bs4 import BeautifulSoup
 from datetime import datetime
 
 DAYS_PT = ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]
 VENUE_URL = 'https://shotgun.live/organizations/balaclava'
 
-# Páginas HTML do Balaclava no Shotgun (Next.js embute __NEXT_DATA__)
 PAGE_URLS = [
     'https://shotgun.live/organizations/balaclava',
     'https://shotgun.live/pt-br/organizations/balaclava',
 ]
 
-# APIs REST — fallback
-API_URLS = [
-    'https://shotgun.live/api/organizations/balaclava/events?language=pt-br',
-    'https://shotgun.live/api/v1/organizations/balaclava/events',
-    'https://shotgun.live/api/v2/events?organization_slug=balaclava',
-]
-
 _HEADERS = {
     'User-Agent': (
-        'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
-        '(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
     ),
-    'Accept': 'text/html,application/json',
+    'Accept': 'text/html,application/xhtml+xml',
+    'Accept-Language': 'pt-BR,pt;q=0.9',
 }
 
 
@@ -43,30 +34,29 @@ def infer_genre(name: str) -> str:
 
 
 def _parse_start(e: dict) -> str:
-    for field in ('startDate', 'start_date', 'start_at', 'starts_at', 'startsAt', 'date'):
-        val = e.get(field)
-        if val:
-            return str(val)
+    for field in ('startDate','start_date','start_at','starts_at','startsAt','date'):
+        v = e.get(field)
+        if v:
+            return str(v)
     return ''
 
 
 def _find_events(obj, depth=0) -> list:
-    """Busca recursiva por lista de eventos no JSON do __NEXT_DATA__."""
     if depth > 6:
         return []
     if isinstance(obj, list) and len(obj) > 0:
         first = obj[0]
-        if isinstance(first, dict) and any(k in first for k in ('name', 'title', 'startDate', 'start_at', 'slug')):
+        if isinstance(first, dict) and any(k in first for k in ('name','title','startDate','start_at','slug')):
             return obj
     if isinstance(obj, dict):
         for v in obj.values():
-            result = _find_events(v, depth + 1)
-            if result:
-                return result
+            r = _find_events(v, depth + 1)
+            if r:
+                return r
     return []
 
 
-def _parse_raw_events(raw: list) -> list:
+def _parse_raw(raw: list) -> list:
     out = []
     for e in raw:
         if not isinstance(e, dict):
@@ -78,19 +68,16 @@ def _parse_raw_events(raw: list) -> list:
             dt = datetime.fromisoformat(start.replace('Z', '+00:00')).astimezone()
         except Exception:
             continue
-
         name = (e.get('name') or e.get('title') or '').strip()
         if not name:
             continue
-
         slug = e.get('slug', '')
         venue_obj = e.get('venue') or {}
         venue_name = venue_obj.get('name', '') if isinstance(venue_obj, dict) else ''
-
         out.append({
             'name': name,
             'detail': '',
-            'date': f"{DAYS_PT[(dt.weekday() + 1) % 7]} {dt.day:02d}/{dt.month:02d}",
+            'date': f"{DAYS_PT[(dt.weekday()+1)%7]} {dt.day:02d}/{dt.month:02d}",
             'time': f"{dt.hour:02d}h{dt.minute:02d}" if dt.minute else f"{dt.hour:02d}h",
             'iso': dt.strftime('%Y-%m-%d'),
             'venue': venue_name or 'Audio SP',
@@ -102,45 +89,107 @@ def _parse_raw_events(raw: list) -> list:
     return out
 
 
-def _scrape_next_data() -> list:
-    """Extrai eventos do __NEXT_DATA__ embutido pelo Next.js do Shotgun."""
-    for url in PAGE_URLS:
+def _try_requests(url: str) -> list:
+    res = requests.get(url, headers=_HEADERS, timeout=20)
+    res.raise_for_status()
+    soup = BeautifulSoup(res.text, 'html.parser')
+    print(f'[balaclava] requests {url} — {res.status_code}, {len(res.text)} bytes')
+
+    tag = soup.find('script', id='__NEXT_DATA__')
+    if tag and tag.string:
+        raw = _find_events(json.loads(tag.string))
+        if raw:
+            return _parse_raw(raw)
+
+    for script in soup.find_all('script', type='application/json'):
         try:
-            res = requests.get(url, headers=_HEADERS, timeout=20)
-            res.raise_for_status()
-            soup = BeautifulSoup(res.text, 'html.parser')
-            tag = soup.find('script', id='__NEXT_DATA__')
-            if not tag or not tag.string:
-                continue
-            data = json.loads(tag.string)
-            raw = _find_events(data)
+            raw = _find_events(json.loads(script.string or ''))
             if raw:
-                return _parse_raw_events(raw)
+                return _parse_raw(raw)
         except Exception:
-            continue
+            pass
+
     return []
 
 
-def _scrape_api() -> list:
-    for url in API_URLS:
+def _try_playwright(url: str) -> list:
+    from playwright.sync_api import sync_playwright
+    from scrapers._browser import stealth_page, goto_safe
+
+    with sync_playwright() as p:
+        browser, ctx, page = stealth_page(p)
         try:
-            req = urllib.request.Request(url, headers=_HEADERS)
-            with urllib.request.urlopen(req, timeout=20) as r:
-                payload = json.loads(r.read().decode('utf-8'))
-            raw = payload if isinstance(payload, list) else payload.get('events', [])
-            if raw:
-                return _parse_raw_events(raw)
-        except Exception:
-            continue
-    return []
+            goto_safe(page, url)
+            page.wait_for_timeout(5000)
+            print(f'[balaclava] Playwright — title: {page.title()!r}')
+
+            try:
+                nd = page.evaluate('() => { const s = document.getElementById("__NEXT_DATA__"); return s ? s.textContent : null; }')
+                if nd:
+                    raw = _find_events(json.loads(nd))
+                    if raw:
+                        return _parse_raw(raw)
+            except Exception:
+                pass
+
+            anchors = page.eval_on_selector_all('a[href*="/events/"]', '''els => {
+                const seen = new Set();
+                return els.filter(el => {
+                    if (seen.has(el.href)) return false;
+                    seen.add(el.href);
+                    return true;
+                }).map(el => {
+                    const card = el.closest("article,li,[class*=card],[class*=Card],[class*=event],[class*=Event]") || el;
+                    return {
+                        href: el.href,
+                        name: (card.querySelector("h1,h2,h3,[class*=title],[class*=Title]")?.innerText || el.innerText || "").trim(),
+                        date: (card.querySelector("time,[class*=date],[class*=Date]")?.innerText || "").trim(),
+                        venue: (card.querySelector("[class*=venue],[class*=Venue]")?.innerText || "").trim(),
+                    };
+                }).filter(e => e.name && e.name.length > 3);
+            }''')
+
+            events = []
+            for a in anchors:
+                name = re.sub(r'\s+', ' ', a.get('name', '')).strip()[:140]
+                if not name:
+                    continue
+                events.append({
+                    'name': name,
+                    'detail': '',
+                    'date': '',
+                    'time': '',
+                    'iso': '',
+                    'venue': a.get('venue') or 'Audio SP',
+                    'v': 'balaclava',
+                    'genre': infer_genre(name),
+                    'price': '',
+                    'url': a.get('href', VENUE_URL),
+                })
+            return events
+        finally:
+            ctx.close()
+            browser.close()
 
 
 def get_balaclava_events():
-    events = _scrape_next_data()
-    if events:
-        return events
-    events = _scrape_api()
-    if events:
-        return events
-    print('[balaclava] Não foi possível coletar eventos.')
+    for url in PAGE_URLS:
+        try:
+            events = _try_requests(url)
+            if events:
+                print(f'[balaclava] {len(events)} eventos via requests')
+                return events
+        except Exception as ex:
+            print(f'[balaclava] requests falhou ({url}): {ex}')
+
+    for url in PAGE_URLS:
+        try:
+            events = _try_playwright(url)
+            if events:
+                print(f'[balaclava] {len(events)} eventos via Playwright')
+                return events
+        except Exception as ex:
+            print(f'[balaclava] Playwright falhou ({url}): {ex}')
+
+    print('[balaclava] Nenhum evento coletado.')
     return []

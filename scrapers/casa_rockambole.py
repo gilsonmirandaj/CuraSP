@@ -1,14 +1,19 @@
+import re
 import requests
 from bs4 import BeautifulSoup
-from playwright.sync_api import sync_playwright
 from datetime import datetime
-import re
 
 URL = 'https://meaple.com.br/rockambole'
 DAYS_PT = ["Dom","Seg","Ter","Qua","Qui","Sex","Sab"]
-MONTHS = {
-    'jan':1,'fev':2,'mar':3,'abr':4,'mai':5,'jun':6,
-    'jul':7,'ago':8,'set':9,'out':10,'nov':11,'dez':12,
+MONTHS = {'jan':1,'fev':2,'mar':3,'abr':4,'mai':5,'jun':6,'jul':7,'ago':8,'set':9,'out':10,'nov':11,'dez':12}
+
+_HEADERS = {
+    'User-Agent': (
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+        'AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+    ),
+    'Accept': 'text/html,application/xhtml+xml',
+    'Accept-Language': 'pt-BR,pt;q=0.9',
 }
 
 
@@ -16,8 +21,7 @@ def parse_iso(text: str) -> str:
     t = ' '.join((text or '').split()).lower()
     m = re.search(r'(\d{1,2})\s+(?:de\s+)?([a-zç]{3,})', t)
     if m:
-        day = int(m.group(1))
-        month = MONTHS.get(m.group(2)[:3])
+        day, month = int(m.group(1)), MONTHS.get(m.group(2)[:3])
         if month:
             now = datetime.now()
             year = now.year
@@ -43,12 +47,11 @@ def fmt_date(iso: str) -> str:
     if not iso:
         return ''
     dt = datetime.fromisoformat(iso)
-    return f"{DAYS_PT[(dt.weekday() + 1) % 7]} {dt.day:02d}/{dt.month:02d}"
+    return f"{DAYS_PT[(dt.weekday()+1)%7]} {dt.day:02d}/{dt.month:02d}"
 
 
 def _build_events(anchors: list) -> list:
-    events = []
-    seen = set()
+    events, seen = [], set()
     for a in anchors:
         href = (a.get('href') or '').strip()
         if not href or 'meaple.com.br' not in href:
@@ -81,10 +84,11 @@ def _build_events(anchors: list) -> list:
 
 
 def get_casa_rockambole_events():
-    # Tenta requests + BeautifulSoup primeiro (mais leve)
+    # Tentativa 1: requests
     try:
-        res = requests.get(URL, timeout=15, headers={'User-Agent': 'Mozilla/5.0'})
+        res = requests.get(URL, headers=_HEADERS, timeout=15)
         res.raise_for_status()
+        print(f'[rockambole] requests OK — {res.status_code}, {len(res.text)} bytes')
         soup = BeautifulSoup(res.text, 'html.parser')
         anchors = [
             {'href': a.get('href', ''), 'text': a.get_text('\n', strip=True), 'title': a.get('title', '')}
@@ -92,33 +96,39 @@ def get_casa_rockambole_events():
         ]
         events = _build_events(anchors)
         if events:
+            print(f'[rockambole] {len(events)} eventos via requests')
             return events
-    except Exception:
-        pass
+        print('[rockambole] requests OK mas nenhum evento encontrado')
+    except Exception as ex:
+        print(f'[rockambole] requests falhou: {ex}')
 
-    # Fallback: Playwright para páginas JS-rendered
+    # Tentativa 2: Playwright com stealth
     try:
         return _scrape_playwright()
     except Exception as ex:
-        print(f'[rockambole] Falhou: {ex}')
+        print(f'[rockambole] Playwright falhou: {ex}')
         return []
 
 
 def _scrape_playwright():
+    from playwright.sync_api import sync_playwright
+    from scrapers._browser import stealth_page, goto_safe
+
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True, args=['--no-sandbox', '--disable-setuid-sandbox'])
-        page = browser.new_page(
-            user_agent='Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-        )
+        browser, ctx, page = stealth_page(p)
         try:
-            page.goto(URL, wait_until='networkidle', timeout=30000)
-        except Exception:
-            page.goto(URL, wait_until='domcontentloaded', timeout=30000)
-        page.wait_for_timeout(2500)
-        anchors = page.eval_on_selector_all('a[href]', '''els => els.map(el => ({
-            href: el.href || "",
-            text: el.innerText || "",
-            title: el.getAttribute("title") || ""
-        }))''')
-        browser.close()
-    return _build_events(anchors)
+            goto_safe(page, URL)
+            page.wait_for_timeout(4000)
+            print(f'[rockambole] Playwright — title: {page.title()!r}')
+            anchors = page.eval_on_selector_all('a[href]', '''els => els.map(el => ({
+                href: el.href || "",
+                text: el.innerText || "",
+                title: el.getAttribute("title") || ""
+            }))''')
+        finally:
+            ctx.close()
+            browser.close()
+
+    events = _build_events(anchors)
+    print(f'[rockambole] {len(events)} eventos via Playwright')
+    return events
