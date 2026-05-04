@@ -1,30 +1,6 @@
 {
-  "updated": "2026-04-27T10:23:33Z",
+  "updated": "2026-05-04T10:19:24Z",
   "events": [
-    {
-      "name": "Samba do Comerciário",
-      "detail": "",
-      "date": "Ter 28/04",
-      "time": "",
-      "iso": "2026-04-28",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Samba",
-      "price": "Grátis",
-      "url": "https://www.sescsp.org.br/programacao/"
-    },
-    {
-      "name": "Alma Djem",
-      "detail": "Acústico – Reggae, MPB, Soul",
-      "date": "Qui 30/04",
-      "time": "21h",
-      "iso": "2026-04-30",
-      "venue": "SESC SP",
-      "v": "sesc",
-      "genre": "Reggae",
-      "price": "R$60",
-      "url": "https://www.sescsp.org.br/?s=Alma+Djem"
-    },
     {
       "name": "Varukers",
       "detail": "",
